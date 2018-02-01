@@ -267,7 +267,7 @@ void SkinModel::Init(SkinModelData* modelData)
 	pEffect = g_effectManager->LoadEffect("Assets/Shader/Model.fx");
 	skinModelData = modelData;
 }
-void SkinModel::UpdateWorldMatrix(const D3DXVECTOR3& trans, const D3DXQUATERNION& rot, const D3DXVECTOR3& scale,const D3DXVECTOR4& setambientlight)
+void SkinModel::UpdateWorldMatrix(const D3DXVECTOR3& trans, const D3DXQUATERNION& rot, const D3DXVECTOR3& scale)
 {
 	D3DXMATRIX mTrans, mScale;
 	D3DXMatrixScaling(&mScale, scale.x, scale.y, scale.z);

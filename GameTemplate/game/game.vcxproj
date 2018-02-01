@@ -156,6 +156,8 @@
     <ClCompile Include="Bloom.cpp" />
     <ClCompile Include="CCourcePath.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
+    <ClCompile Include="Clear.cpp" />
+    <ClCompile Include="ClearTexture.cpp" />
     <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -190,6 +192,8 @@
     <ClInclude Include="Bloom.h" />
     <ClInclude Include="CCourcePath.h" />
     <ClInclude Include="CIndexBuffer.h" />
+    <ClInclude Include="Clear.h" />
+    <ClInclude Include="ClearTexture.h" />
     <ClInclude Include="courcePath.h" />
     <ClInclude Include="CVertexBuffer.h" />
     <ClInclude Include="game.h" />

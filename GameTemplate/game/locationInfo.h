@@ -1,46 +1,72 @@
-﻿
-//下地面
+﻿//CarStageStraight1
 {
-"Stage",
-D3DXVECTOR3(0.00f, 0.00f, 0.00f),             //平行
-//移動
-D3DXQUATERNION(-0.0f, 0.00f, 0.00f, 0.71f),  //回転
-D3DXVECTOR3(0.1f, 0.1f, 0.1f),
-D3DXVECTOR4(0.3f, 1.3f, 0.3f, 1.0f),
+	"CarStageStraight1",
+	D3DXVECTOR3(0.00f, 0.00f, 40.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
 },
-
-////下地面
-//{
-//"Stage",
-//D3DXVECTOR3(0.00f, 0.00f, 0.00f),             //平行
-////移動
-//D3DXQUATERNION(-0.0f, 0.00f, 0.00f, 0.71f),  //回転
-//D3DXVECTOR3(1.0f, 0.1f, 1.0f),
-//D3DXVECTOR4(0.3f, 1.3f, 0.3f, 1.0f),
-//},
-
+//CarStageStraight1
 {
-	"potion1",
-	D3DXVECTOR3(40.00f, 2.00f, 0.00f),             //平行移動
-	D3DXQUATERNION(-0.0f, 0.00f, 0.00f, 0.71f),  //回転
-	D3DXVECTOR3(1.0f, 1.0f, 1.0f),
-	D3DXVECTOR4(10.3f, 0.3f, 0.3f, 1.0f),
+	"CarStageStraight1",
+	D3DXVECTOR3(0.00f, 0.00f, 80.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
 },
+//CarStageStraight1
 {
-	"potion1",
-	D3DXVECTOR3(20.00f, 2.00f, 0.00f),             //平行移動
-	D3DXQUATERNION(-0.0f, 0.00f, 0.00f, 0.71f),  //回転
-	D3DXVECTOR3(1.0f, 1.0f, 1.0f),
-	D3DXVECTOR4(0.3f, 0.3f, 0.3f, 1.0f),
+	"CarStageStraight1",
+	D3DXVECTOR3(0.00f, 0.00f, 120.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
 },
+//CarStageStraight1
 {
-	"potion2",
-	D3DXVECTOR3(0.00f, 2.00f, 0.00f),             //平行移動
-	D3DXQUATERNION(-0.0f, 0.00f, 0.00f, 0.71f),  //回転
-	D3DXVECTOR3(1.0f, 1.0f, 1.0f),
-	D3DXVECTOR4(10.3f, -10.3f, 10.3f, 1.0f),
+	"CarStageStraight1",
+	D3DXVECTOR3(0.00f, 0.00f, 160.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
 },
-
-/*直訳　＝ 経路範囲*/
-//WINGDIAPI HRGN WINAPI PathToRegion(_In_ HDC hdc);
-//PathToRegion();
+//CarStageStraight1
+{
+	"CarStageStraight1",
+	D3DXVECTOR3(-160.00f, 0.00f, 40.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
+},
+//CarStageStraight1
+{
+	"CarStageStraight1",
+	D3DXVECTOR3(-160.00f, 0.00f, 80.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
+},
+//CarStageStraight1
+{
+	"CarStageStraight1",
+	D3DXVECTOR3(-160.00f, 0.00f, 120.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
+},
+//CarStageStraight1
+{
+	"CarStageStraight1",
+	D3DXVECTOR3(-160.00f, 0.00f, 160.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
+},
+//CarStageCurve
+{
+	"CarStageCurve",
+	D3DXVECTOR3(0.00f, 0.00f, 0.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
+},
+//CarStageCurve
+{
+	"CarStageCurve",
+	D3DXVECTOR3(-160.00f, 0.00f, 160.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 1.00f, 0.00f, 0.00f ),  //回転
+},
+//CarStageCurveMirror
+{
+	"CarStageCurveMirror",
+	D3DXVECTOR3(-160.00f, 0.00f, 0.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 0.00f, 0.00f, 1.00f ),  //回転
+},
+//CarStageCurveMirror
+{
+	"CarStageCurveMirror",
+	D3DXVECTOR3(0.00f, 0.00f, 160.00f),             //平行移動
+	D3DXQUATERNION(0.00f, 1.00f, 0.00f, 0.00f ),  //回転
+},

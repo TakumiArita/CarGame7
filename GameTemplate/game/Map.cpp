@@ -37,34 +37,34 @@ void Map::Update()
 	}
 }
 
-//void Map::Draw()
-//{
-//	//一個ずつマップチップを更新
-//	for (int i = 0; i < mapChipList.size(); i++) {
-//		mapChipList[i]->Draw();
-//	}
-//}
-
-//マップ以外アルファブレンディングをかける。
 void Map::Draw()
 {
 	//一個ずつマップチップを更新
 	for (int i = 0; i < mapChipList.size(); i++) {
-		if (mapChipList[0] >= mapChipList[i])
-		{
-			mapChipList[i]->Draw();
-
-		}
-		else if (mapChipList[0] < mapChipList[i])
-		{
-			//アルファブレンディングON
-			g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-			//加算合成
-			g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
-			g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-			mapChipList[i]->Draw();
-			//アルファブレンディングOFF
-			g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-		}
+		mapChipList[i]->Draw();
 	}
 }
+
+////マップ以外アルファブレンディングをかける。
+//void Map::Draw()
+//{
+//	//一個ずつマップチップを更新
+//	for (int i = 0; i < mapChipList.size(); i++) {
+//		if (mapChipList[0] >= mapChipList[i])
+//		{
+//			mapChipList[i]->Draw();
+//
+//		}
+//		else if (mapChipList[0] < mapChipList[i])
+//		{
+//			//アルファブレンディングON
+//			g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+//			//加算合成
+//			g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+//			g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+//			mapChipList[i]->Draw();
+//			//アルファブレンディングOFF
+//			g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+//		}
+//	}
+//}

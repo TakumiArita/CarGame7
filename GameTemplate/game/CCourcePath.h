@@ -3,7 +3,6 @@ struct CMapChipLocInfo {
 	const char*     modelName;     //モデル。
 	D3DXVECTOR3     pos;           //座標。
 	D3DXQUATERNION  rotation;	   //回転。
-	D3DXVECTOR3     scale;         //大きさ
 
 };
 class CCourcePath
@@ -20,26 +19,13 @@ public:
 	void Init(SCourceEdge& courcePath);
 	void Update();
 	void Draw();
-
-	D3DXVECTOR3 GetStartPos()
-	{
-		return m_startPos;
-	}
-	D3DXVECTOR3 GetEndPos()
-	{
-		return m_endPos;
-	}
-	D3DXVECTOR3 GetStartToEnd()
-	{
-		return m_startToEnd;
-	}
-	D3DXVECTOR3 GetDirection()
-	{
-		return m_direction;
-	}
 	SCourceEdge GetCourceEdigeList(int i)
 	{
 		return courceEdigeList[i];
+	}
+	int GetNumEdge()
+	{
+		return courceEdigeList.size();
 	}
 	int GetNumObject()
 	{
@@ -47,6 +33,8 @@ public:
 	}
 
 private:
+	SkinModel       model;
+
 	//コースパスのリスト
 	std::vector<SCourceEdge> courceEdigeList;	//コースパスのエッジのリスト。
 

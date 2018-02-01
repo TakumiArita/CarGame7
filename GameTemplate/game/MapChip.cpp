@@ -3,13 +3,12 @@
 #include "MapChip.h"
 #include "SceneManager.h"
 
-
 MapChip::MapChip() :
 	position(0.0f, 0.0f, 0.0f),
-	rotation(0.0f,0.0f,0.0f,1.0f),
-	scale(1.0f, 1.0f, 1.0f)
+	rotation(0.0f,0.0f,0.0f,1.0f)
 {
 }
+
 MapChip::~MapChip()
 {
 }
@@ -34,18 +33,13 @@ void MapChip::Init(SMapChipLocInfo& locInfo)
 	light.SetDiffuseLightColor(1, D3DXVECTOR4(0.2f, 0.2f, 0.2f, 1.0f));
 	light.SetDiffuseLightColor(2, D3DXVECTOR4(0.3f, 0.3f, 0.3f, 1.0f));
 	light.SetDiffuseLightColor(3, D3DXVECTOR4(0.2f, 0.2f, 0.2f, 1.0f));
-	//環境光はInit関数最後に追加。
-	//light.SetAmbientLight(D3DXVECTOR4(0.3f, 0.3f, 0.3f, 1.0f));
-	//light.SetAmbientLight(setambientlight);
-
-
+	light.SetAmbientLight(D3DXVECTOR4(0.3f, 0.3f, 0.3f, 1.0f));
+	
 	model.SetLight(&light);
 	position = locInfo.pos;
 	rotation = locInfo.rotation;
-	scale = locInfo.scale;
-	setambientlight = locInfo.setambientlight;
 
-	model.UpdateWorldMatrix(position, rotation, scale,setambientlight);
+	model.UpdateWorldMatrix(position, rotation, { 1.0f,1.0f,1.0f });
 	//衝突判定絡みの初期化
 	//スキンモデルからメッシュコライダーを作成する
 	D3DXMATRIX* rootBoneMatrix = modelData.GetRootBoneWorldMatrix();
@@ -57,15 +51,10 @@ void MapChip::Init(SMapChipLocInfo& locInfo)
 	rbInfo.mass = 0.0f;                 //質量を0にすると剛体が動かない
 	rbInfo.pos = position;
 	rbInfo.rot = rotation;
-	rbInfo.scale = scale;
-	rbInfo.setambientlight = setambientlight;
 	//剛体を作成する
 	rigidBody.Create(rbInfo);
 	//作成した剛体を物理ワールドに追加
 	g_physicsWorld->AddRigidBody(&rigidBody);
-	//環境光
-	light.SetAmbientLight(setambientlight);
-
 }
 
 void MapChip::Update()

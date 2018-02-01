@@ -34,7 +34,7 @@ public:
 	*@param[in]		rot		回転。
 	*@param[in]		scale	拡大。
 	*/
-	void UpdateWorldMatrix( const D3DXVECTOR3& trans, const D3DXQUATERNION& rot, const D3DXVECTOR3& scale,const D3DXVECTOR4& setambientlight);
+	void UpdateWorldMatrix( const D3DXVECTOR3& trans, const D3DXQUATERNION& rot, const D3DXVECTOR3& scale);
 	/*!
 	*@brief	ライトを設定。
 	*/

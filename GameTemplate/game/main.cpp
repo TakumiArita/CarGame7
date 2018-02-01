@@ -13,7 +13,7 @@ SceneManager* scenemanager;
 RenderTarget* renderTarget;
 ShadowMap     g_shadowmap;
 
-
+/*
 //-----------------------------------------------------------------------------
 // 板ポリを描画。
 //-----------------------------------------------------------------------------
@@ -41,15 +41,12 @@ void DrawQuadPrimitive()
 		quadPrimitive->GetNumPolygon()			//プリミティブの数。
 	);
 }
+*/
 //-----------------------------------------------------------------------------
 // Name: ゲームを初期化。
 //-----------------------------------------------------------------------------
 void Init()
 {
-	CCourcePath courcePath;
-	CCourcePath::SCourceEdge  edge;
-	courcePath.Init(edge);
-
 	//18-2 メインレンダリングターゲットを作成する。
 	//scenemanager->mainRenderTarget.InitMainRenderTarget();
 	//18-3 四角形の板ポリプリミティブを作成。

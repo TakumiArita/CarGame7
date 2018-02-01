@@ -7,6 +7,8 @@
 #include "RenderTarget.h"
 #include "Primitive.h"
 #include "CCourcePath.h"
+#include "Clear.h"
+#include "ClearTexture.h"
 //#include "locationInfo.h"
 
 class SceneManager
@@ -56,6 +58,8 @@ public:
 	Player            player;
 	//マップ
 	Map                map;
+	Clear              clear;
+	ClearTexture       clearTexture;
 	//シャドウマップ
 	ShadowMap          shadowmap;
 	//レンダーターゲット

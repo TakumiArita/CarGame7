@@ -27,6 +27,10 @@ public:
 	{
 		return lookcamera;
 	}
+	float GetUpLookCamera()
+	{
+		return uplookcamera;
+	}
 	//プレイヤーとカメラの回転
 	float GetQCamera()
 	{
@@ -57,6 +61,14 @@ private:
 	Pad                 pad;                 //パッド
 	D3DXQUATERNION      rotation;            //回転
 	CharacterController characterController; //キャラクターコントローラ
+	D3DXVECTOR3 StartToPlayerDirection;      //ノード(始点)からプレイヤーのベクトル。
+	D3DXVECTOR3 NormalStartToPlayerDirection;//ノード(始点)からプレイヤーの方向ベクトル。
+	D3DXVECTOR3 EndToPlayerDirection;        //ノード(終点)からプレイヤーのベクトル。
+	D3DXVECTOR3 NormalEndToPlayerDirection;  //ノード(終点)からプレイヤーの方向ベクトル。
+	D3DXVECTOR3 v2;          //ｔとエッジの方向ベクトルを乗算。
+	D3DXVECTOR3 v3;                  //エッジに落ちるベクトル。
+	float t;                           //v1と、エッジの方向ベクトルとの内積を計算して、エッジ上に射影した長さ。
+
 	float               movedirz = 0.0f;
 	D3DXVECTOR3			moveDir = {-1.0f, 0.0f, 0.0f};	//車の進行方向。
 	int startToGoal = 0;
@@ -68,6 +80,7 @@ private:
 	int failuretimer;
 	//カメラの向き
 	float lookcamera;
+	float uplookcamera;
 	//プレイヤーの回転
 	float qcamera;
 	//法線マップ
