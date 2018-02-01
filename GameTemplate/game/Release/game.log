@@ -1,0 +1,29 @@
+﻿  stdafx.cpp
+  game.cpp
+  main.cpp
+  Map.cpp
+Map.cpp(35): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+Map.cpp(43): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  MapChip.cpp
+  Animation.cpp
+  Camera.cpp
+  EffectManager.cpp
+  SkinModel.cpp
+  SkinModelData.cpp
+myEngine\Graphics\SkinModelData.cpp(320): warning C4316: 'D3DXFRAME_DERIVED': ヒープで割り当てられたオブジェクトが 16 にアラインメントされていない可能性があります
+  Pad.cpp
+  CapsuleCollider.cpp
+  CharacterController.cpp
+  MeshCollider.cpp
+  Physics.cpp
+  RigidBody.cpp
+  System.cpp
+  Player.cpp
+Player.cpp(146): warning C4805: '==': 演算中の 'float' 型と 'bool' 型の混用は安全ではありません
+Player.cpp(151): warning C4805: '==': 演算中の 'float' 型と 'bool' 型の混用は安全ではありません
+  SceneManager.cpp
+  コード生成しています。
+  All 851 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  game.vcxproj -> C:\Users\kbc16b01\Desktop\CarGame\GameTemplate\Release\game.exe
+  game.vcxproj -> C:\Users\kbc16b01\Desktop\CarGame\GameTemplate\Release\game.pdb (Full PDB)
