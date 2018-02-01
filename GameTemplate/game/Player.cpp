@@ -320,7 +320,7 @@ void Player::Update()
 			D3DXVECTOR3 moveDir;
 			D3DXVec3Normalize(&moveDir, &moveSpeed);
 			if (D3DXVec3Dot(&CListDirection, &moveDir) < 0) {
-				MessageBox(NULL, "‹t‘–‚µ‚Ä‚Ü‚·‚æB", "’Ê’m", MB_OK);
+				MessageBox(NULL, "‹t‘–‚µ‚Ä‚Ü‚·B", "’Ê’m", MB_OK);
 			}
 		}
 
