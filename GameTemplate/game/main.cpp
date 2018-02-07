@@ -50,7 +50,7 @@ void Init()
 	//18-2 メインレンダリングターゲットを作成する。
 	//scenemanager->mainRenderTarget.InitMainRenderTarget();
 	//18-3 四角形の板ポリプリミティブを作成。
-	//scenemanager->scenemanager->mainRenderTarget.InitQuadPrimitive();
+	//scenemanager->mainRenderTarget.InitQuadPrimitive();
 	//18-3、18-4 シェーダーをロード。
 	//scenemanager->scenemanager->mainRenderTarget.LoadShaders();
 
@@ -85,6 +85,8 @@ void Update()
 {
 	game->Update();
 	scenemanager->Update();
+	//OutputDebugString("Test");
+	//MessageBox(NULL, "Test", "通知", MB_OK);
 }
 //-----------------------------------------------------------------------------
 //ゲームが終了するときに呼ばれる処理。

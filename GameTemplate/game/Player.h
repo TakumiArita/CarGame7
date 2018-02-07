@@ -49,9 +49,10 @@ public:
 	{
 		return light;
 	}
-	int GetStartToGoal()
+	//周回回数
+	int GetCirclingTimes()
 	{
-		return startToGoal;
+		return CirclingTimes;
 	}
 private:
 	SkinModel           model;
@@ -65,13 +66,17 @@ private:
 	D3DXVECTOR3 NormalStartToPlayerDirection;//ノード(始点)からプレイヤーの方向ベクトル。
 	D3DXVECTOR3 EndToPlayerDirection;        //ノード(終点)からプレイヤーのベクトル。
 	D3DXVECTOR3 NormalEndToPlayerDirection;  //ノード(終点)からプレイヤーの方向ベクトル。
+	//D3DXVECTOR3 FirstStartToPlayerDirection;        //最後のノードからプレイヤーに向かうベクトル。
+	//D3DXVECTOR3 NormalFirstStartToPlayerDirection;  //最後のノードからプレイヤーに向かうベクトル。
+	//D3DXVECTOR3 LastEndToPlayerDirection;          //最後のノードからプレイヤーに向かうベクトル。
+	//D3DXVECTOR3 NormalLastEndToPlayerDirection;    //最後のノードからプレイヤーに向かうベクトル。
+
 	D3DXVECTOR3 v2;          //ｔとエッジの方向ベクトルを乗算。
 	D3DXVECTOR3 v3;                  //エッジに落ちるベクトル。
 	float t;                           //v1と、エッジの方向ベクトルとの内積を計算して、エッジ上に射影した長さ。
 
 	float               movedirz = 0.0f;
 	D3DXVECTOR3			moveDir = {-1.0f, 0.0f, 0.0f};	//車の進行方向。
-	int startToGoal = 0;
 	//止まっているタイマー
 	int stoptimer;
 	//加速タイマー
@@ -83,6 +88,12 @@ private:
 	float uplookcamera;
 	//プレイヤーの回転
 	float qcamera;
+	//周回回数
+	int CirclingTimes = NULL;
+	//エッジのフラグ最初。
+	bool firstEdgeNoFlag = false;
+	//エッジのフラグ最後。
+	bool lastEdgeNoFlag = false;
 	//法線マップ
 	LPDIRECT3DTEXTURE9 normalMap = NULL;
 };

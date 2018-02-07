@@ -28,6 +28,8 @@ void SceneManager::Init()
 	clear.Init();
 	//コースパス初期化。
 	courcePath.Init(edge);
+	//mainRenderTarget.InitMainRenderTarget();
+	//mainRenderTarget.InitQuadPrimitive();
 }
 void SceneManager::Update()
 {
@@ -94,7 +96,7 @@ void SceneManager::Draw()
 
 	//シャドウマップ描画。
 	g_shadowmap.Draw();
-	if (player.GetStartToGoal() > 1)
+	if (player.GetCirclingTimes() > 2)
 	{
 		clear.Draw();
 	}

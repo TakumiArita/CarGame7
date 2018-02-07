@@ -15,7 +15,7 @@ void ClearTexture::Init()
 	D3DXCreateTextureFromFileEx(
 		//Direct3Dデバイス
 		g_pd3dDevice,
-		"Assets/modelData/clear3.png",
+		"Assets/modelData/Goal1.png",
 		FRAME_BUFFER_WIDTH + 100,
 		FRAME_BUFFER_HEIGHT + 100,
 		0,

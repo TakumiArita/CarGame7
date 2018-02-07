@@ -99,9 +99,9 @@ void Player::Init()
 	//車の初期加速失敗のタイマー
 	failuretimer = 0;
 	//カメラの向き初期化
-	lookcamera = 0.0f;
+	lookcamera = -90.0f;
 	//プレイヤーの初期化
-	qcamera = 0.0f;
+	qcamera = -90.0f;
 
 	//scenemanager->ccourcepath.SCourceEdge.startToEnd
 	//scenemanager->ccourcepath.SCourceEdge scourceedge;
@@ -119,7 +119,7 @@ void Player::Update()
 	D3DXQuaternionIdentity(&addRot);
 
 	//カメラの回転
-	if (GetAsyncKeyState(VK_RIGHT)/* && lookcamera >= -10.0f  && lookcamera < 10.0f*/)
+	if (GetAsyncKeyState(VK_RIGHT))
 	{
 		lookcamera -= 1.0f;
 		if (GetAsyncKeyState('S'))
@@ -127,7 +127,7 @@ void Player::Update()
 			lookcamera -= 1.5f;
 		}
 	}
-	if (GetAsyncKeyState(VK_LEFT) /*&& lookcamera > -10.0f && lookcamera <= 10.0f*/)
+	if (GetAsyncKeyState(VK_LEFT))
 	{
 		lookcamera += 1.0f;
 		if (GetAsyncKeyState('S'))
@@ -135,7 +135,7 @@ void Player::Update()
 			lookcamera += 1.5f;
 		}
 	}
-	if (GetAsyncKeyState(VK_UP)/* && lookcamera >= -10.0f  && lookcamera < 10.0f*/)
+	if (GetAsyncKeyState(VK_UP))
 	{
 		uplookcamera += 1.0f;
 		if (GetAsyncKeyState('S'))
@@ -143,7 +143,7 @@ void Player::Update()
 			uplookcamera += 1.5f;
 		}
 	}
-	if (GetAsyncKeyState(VK_DOWN) /*&& lookcamera > -10.0f && lookcamera <= 10.0f*/)
+	if (GetAsyncKeyState(VK_DOWN))
 	{
 		uplookcamera -= 1.0f;
 		if (GetAsyncKeyState('S'))
@@ -255,7 +255,10 @@ void Player::Update()
 	if (GetAsyncKeyState('O'))
 	{
 		characterController.SetPosition(D3DXVECTOR3(10.0f, 20.0f, 0.0f));
-		lookcamera = 0.0f;
+		lookcamera = -90.0f;
+		qcamera = -90.0f;
+		CirclingTimes = 0;
+
 	}
 
 	if (GetAsyncKeyState('J'))
@@ -290,11 +293,17 @@ void Player::Update()
 		NormalStartToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).startPos;
 		EndToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).endPos;
 		NormalEndToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).endPos;
+		
+		//XZ平面で計算する。
+		StartToPlayerDirection.y = 0.0f;
+		NormalStartToPlayerDirection.y = 0.0f;
+		EndToPlayerDirection.y = 0.0f;
+		NormalEndToPlayerDirection.y = 0.0f;
 		D3DXVec3Normalize(&NormalStartToPlayerDirection, &StartToPlayerDirection);
 		D3DXVec3Normalize(&NormalEndToPlayerDirection, &EndToPlayerDirection);
 		//内積
 		if (D3DXVec3Dot(&NormalStartToPlayerDirection, &CListDirection) > 0 &&
-			D3DXVec3Dot(&NormalEndToPlayerDirection, &-CListDirection) < 0) {
+			D3DXVec3Dot(&NormalEndToPlayerDirection, &CListDirection) < 0) {
 			//プレイヤーがいる可能性のあるエッジが見つかったので、
 			//エッジ上に垂線を下ろして、一番近いエッジを調べる。
 			//①　エッジの始点からプレイヤーに向かうベクトル、v1を求める。
@@ -314,16 +323,37 @@ void Player::Update()
 				nearLen = len;
 			}
 		}
-		if (edgeNo != -1) {
-			//一番近いエッジの方向を取得する。
-			D3DXVECTOR3 CListDirection = scenemanager->courcePath.GetCourceEdigeList(i).direction;
-			D3DXVECTOR3 moveDir;
-			D3DXVec3Normalize(&moveDir, &moveSpeed);
-			if (D3DXVec3Dot(&CListDirection, &moveDir) < 0) {
-				MessageBox(NULL, "逆走してます。", "通知", MB_OK);
-			}
+	}
+	//最初のエッジを通るとflagがtrueになる。
+	if (edgeNo == 0)
+	{
+		firstEdgeNoFlag = true;
+	}
+	//最後のエッジを通るとflagがtrueになる。
+	if (edgeNo == scenemanager->courcePath.GetNumEdge() - 1)
+	{
+		lastEdgeNoFlag = true;
+	}
+	//最初と最後のエッジのflagがtrueになる且つ
+	//プレイヤーが最初のエッジを通る。
+	if (firstEdgeNoFlag == true && lastEdgeNoFlag == true && edgeNo == 0)
+	{
+		//周回回数更新する。
+		CirclingTimes++;
+		//エッジのflagをfalseにする。
+		firstEdgeNoFlag = false;
+		lastEdgeNoFlag  = false;
+	}
+	
+	if (edgeNo != -1) {
+		//一番近いエッジの方向を取得する。
+		D3DXVECTOR3 CListDirection = scenemanager->courcePath.GetCourceEdigeList(edgeNo).direction;
+		D3DXVECTOR3 moveDir;
+		D3DXVec3Normalize(&moveDir, &moveSpeed);
+		if (D3DXVec3Dot(&CListDirection, &moveDir) < 0) {
+			OutputDebugString("逆走しています。");
+			//MessageBox(NULL, "逆走してます。", "通知", MB_OK);
 		}
-
 	}
 }
 

@@ -39,8 +39,17 @@ void CCourcePath::Init(SCourceEdge& courcePath)
 		D3DXVec3Normalize(&edge.direction, &edge.startToEnd);	//始点から終点への方向ベクトル。
 		courceEdigeList.push_back(edge);                 //リストをプッシュバック。
 	}
-}
+	//エッジの情報を作る。
+	SCourceEdge edge;
+	edge.endPos = sortMapChipLocInfo[0]->pos;
+	edge.startPos = sortMapChipLocInfo[numObject - 1]->pos;
+	edge.startToEnd = edge.endPos - edge.startPos;	//始点から終点に向かうベクトル。
+	D3DXVec3Normalize(&edge.direction, &edge.startToEnd);	//始点から終点への方向ベクトル。
 
+	courceEdigeList.push_back(edge);                 //リストをプッシュバック。
+
+
+}	
 void CCourcePath::Update()
 {
 

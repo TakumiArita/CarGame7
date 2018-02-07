@@ -1,5 +1,7 @@
 ﻿  Player.cpp
 c:\users\kbc16b01\desktop\cargame7 - コピー\gametemplate\game\player.cpp(187): warning C4805: '==': 演算中の 'float' 型と 'bool' 型の混用は安全ではありません
 c:\users\kbc16b01\desktop\cargame7 - コピー\gametemplate\game\player.cpp(192): warning C4805: '==': 演算中の 'float' 型と 'bool' 型の混用は安全ではありません
+  ClearTexture.cpp
+  コードを生成中...
   game.vcxproj -> C:\Users\kbc16b01\Desktop\CarGame7 - コピー\GameTemplate\Debug\game.exe
   game.vcxproj -> C:\Users\kbc16b01\Desktop\CarGame7 - コピー\GameTemplate\Debug\game.pdb (Full PDB)

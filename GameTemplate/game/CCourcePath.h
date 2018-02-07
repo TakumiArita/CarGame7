@@ -13,6 +13,7 @@ public:
 		D3DXVECTOR3 endPos;			//コースパスのエッジの終点。
 		D3DXVECTOR3 startToEnd;		//始点から終点に向かうベクトル。
 		D3DXVECTOR3 direction;		//エッジの向き。
+		
 	};
 	CCourcePath();
 	~CCourcePath();
@@ -26,10 +27,6 @@ public:
 	int GetNumEdge()
 	{
 		return courceEdigeList.size();
-	}
-	int GetNumObject()
-	{
-		return numObject;
 	}
 
 private:
