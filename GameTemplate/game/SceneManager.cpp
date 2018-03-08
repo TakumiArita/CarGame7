@@ -24,41 +24,52 @@ void SceneManager::Init()
 	player.Init();
 	//シャドウマップ初期化。
 	g_shadowmap.Init();
-	//クリア初期化。
-	clear.Init();
+	//スプライトの初期化。
+	scenesprite.Init();
+	//ゲーム時間の初期化。
+	sprite.Init();
 	//コースパス初期化。
 	courcePath.Init(edge);
 	//mainRenderTarget.InitMainRenderTarget();
 	//mainRenderTarget.InitQuadPrimitive();
+	//gameTime = -100;
 }
 void SceneManager::Update()
 {
+	if (GetAsyncKeyState(VK_SPACE))
+	{
+		Titleflag = true;
+	}
 	//マップ更新
 	map.Update();
-	//クリアテクスチャの更新。
-	clearTexture.Update();
+	//タイトルのテクスチャの更新。
+	titletexture.Update();
+	//スタートのNoテクスチャの更新。
+	startcounttexture.Update();
+	//スタートのテクスチャの表示。
+	starttexture.Update();
+	//ゴールのテクスチャの更新。
+	goaltexture.Update();
+	//ゲーム時間の更新
+	gametimetexture.Update();
 	//プレイヤーの更新
 	player.Update();
-	//カメラの視点の更新
-    //toCameraPos = { 25.0f,7.0f,player.GetLookCamera() };  //縦画面幅広
+
 	D3DXVECTOR3 targetPos = player.GetPosition();
 	eyePos = targetPos;                         //カメラの注視点を中心にする。
 	camera.SetLookatPt(targetPos);
-
 	//カメラを原点に左右を向く。
 	//camera.SetLookatPt(targetPos + D3DXVECTOR3( 0.0f,0.0f,player.GetLookCamera()));
 	//注視点に合わせたカメラの位置
 	//camera.SetEyePt(eyePos);
 	//注視点を原点に左右を向く。
 	//D3DXToRadian == sin,cos,tanなど三角関数に渡すときはこの関数をつかう。
-	camera.SetEyePt(eyePos + D3DXVECTOR3(cos(D3DXToRadian(player.GetLookCamera())) * 25.0f, 70.0f, sin(D3DXToRadian(player.GetLookCamera())) * 25.0f));
-	//上下も追加。
-	//camera.SetEyePt(eyePos + D3DXVECTOR3(cos(D3DXToRadian(player.GetLookCamera())) * 25.0f, player.GetUpLookCamera(), sin(D3DXToRadian(player.GetLookCamera())) * 25.0f));
-	//上下なし。高い位置からの視点。
-	//camera.SetEyePt(eyePos + D3DXVECTOR3(cos(D3DXToRadian(player.GetLookCamera())) * 25.0f, 700.0f, sin(D3DXToRadian(player.GetLookCamera())) * 25.0f));
+	//上下なし。高い位置からの視点。	
+	//camera.SetEyePt(eyePos + D3DXVECTOR3(cos(D3DXToRadian(player.GetLookCamera())) * 25.0f, 70.0f, sin(D3DXToRadian(player.GetLookCamera())) * 25.0f));
+	
 	//本来のカメラ。
-	//camera.SetEyePt(eyePos + D3DXVECTOR3(cos(D3DXToRadian(player.GetLookCamera())) * 5.0f, 7.0f, sin(D3DXToRadian(player.GetLookCamera())) * 5.0f));
-
+	camera.SetEyePt(eyePos + D3DXVECTOR3(cos(D3DXToRadian(player.GetLookCamera())) * 25.0f, 10.0f, sin(D3DXToRadian(player.GetLookCamera())) * 25.0f));
+	
 	eyeR = (camera.GetEyePt());
 	//カメラの更新
 	camera.Update();
@@ -73,32 +84,49 @@ void SceneManager::Update()
 	mainrendertarget.LoadShaders();
 	mainrendertarget.CopyMainRTToCurrentRT();
 	*/
-
+	//gameTime++;
 }
 
 void SceneManager::Draw()
 {
-	//アルファブレンディングOFF
-	g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-	//マップの描画
-	map.Draw();
-	//アルファブレンディングON
-	g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	//加算合成
-	g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
-	g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);	
-	//プレイヤーの描画
-	player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
-	player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(),false,false,true);
-	//アルファブレンディングOFF
-	g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-	//player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
-
-	//シャドウマップ描画。
-	g_shadowmap.Draw();
-	if (player.GetCirclingTimes() > 2)
+	if (Titleflag == false)
 	{
-		clear.Draw();
+		scenesprite.TitleDraw();
+	}
+	else if (Titleflag == true)
+	{
+
+		//アルファブレンディングOFF
+		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+		//マップの描画
+		map.Draw();
+		//スプライトの描画
+		sprite.Draw();
+		//アルファブレンディングON
+		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		//加算合成
+		g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+		g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+		//プレイヤーの描画
+		player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
+		player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
+		//アルファブレンディングOFF
+		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+		//player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
+
+		//シャドウマップ描画。
+		g_shadowmap.Draw();
+
+		//ゴールのテクスチャの描画。
+		if (player.GetCirclingTimes() > 2)
+		{
+			scenesprite.GoalDraw();
+		}
+		//スタートのテクスチャの描画。
+		if (gametimetexture.GetGameTimer() > 0 && gametimetexture.GetGameTimer() <= 100)
+		{
+			scenesprite.StartDraw();
+		}
 	}
 }
 

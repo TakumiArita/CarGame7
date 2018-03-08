@@ -7,8 +7,12 @@
 #include "RenderTarget.h"
 #include "Primitive.h"
 #include "CCourcePath.h"
-#include "Clear.h"
-#include "ClearTexture.h"
+#include "SceneSprite.h"
+#include "GoalTexture.h"
+#include "StartTexture.h"
+#include "GameTimeTexture.h"
+#include "StartCountTexture.h"
+#include "Sprite.h"
 //#include "locationInfo.h"
 
 class SceneManager
@@ -44,6 +48,10 @@ public:
 	{
 		return eyeR;
 	}
+	bool GetTitleFlag()
+	{
+		return Titleflag;
+	}
 	////カメラの視点のセッター。
 	//D3DXVECTOR3 SetToCameraPos(D3DXVECTOR3 toCameraPos);
 	////カメラの視点のゲッター。
@@ -58,8 +66,20 @@ public:
 	Player            player;
 	//マップ
 	Map                map;
-	Clear              clear;
-	ClearTexture       clearTexture;
+	//タイトル表示
+	TitleTexture titletexture;
+	//スタートNoの表示。
+	StartCountTexture startcounttexture;
+	//ゴール表示
+	GoalTexture  goaltexture;
+	//スタートの表示
+	StartTexture starttexture;
+	//タイトル、ゴールなどのスプライト。
+	SceneSprite  scenesprite;
+
+	//時間表示
+	Sprite             sprite;
+	GameTimeTexture    gametimetexture;
 	//シャドウマップ
 	ShadowMap          shadowmap;
 	//レンダーターゲット
@@ -71,7 +91,7 @@ public:
 	//コースパス
 	CCourcePath        courcePath;
 	CCourcePath::SCourceEdge  edge;
-	//SCourceEdge        scourceedge;
+
 private:
 	//視点
 	D3DXVECTOR3 toCameraPos;
@@ -79,7 +99,8 @@ private:
 	D3DXVECTOR3 eyePos;          
 	//スペキュラライト用の視点
 	D3DXVECTOR3 eyeR;
-
+	//int gameTime;
+	bool Titleflag = false;
 };
 extern SceneManager*  scenemanager;
 extern ShadowMap      g_shadowmap;

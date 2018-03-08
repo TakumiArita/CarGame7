@@ -156,10 +156,11 @@
     <ClCompile Include="Bloom.cpp" />
     <ClCompile Include="CCourcePath.cpp" />
     <ClCompile Include="CIndexBuffer.cpp" />
-    <ClCompile Include="Clear.cpp" />
-    <ClCompile Include="ClearTexture.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameTimeTexture.cpp" />
+    <ClCompile Include="GoalTexture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainRenderTarget.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -179,24 +180,30 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SceneSprite.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="SpringCamera.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="StartCountTexture.cpp" />
+    <ClCompile Include="StartTexture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TitleTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bloom.h" />
     <ClInclude Include="CCourcePath.h" />
     <ClInclude Include="CIndexBuffer.h" />
-    <ClInclude Include="Clear.h" />
-    <ClInclude Include="ClearTexture.h" />
     <ClInclude Include="courcePath.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="CVertexBuffer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="GameTimeTexture.h" />
+    <ClInclude Include="GoalTexture.h" />
     <ClInclude Include="locationInfo.h" />
     <ClInclude Include="MainRenderTarget.h" />
     <ClInclude Include="Map.h" />
@@ -220,9 +227,14 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SceneSprite.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="SpringCamera.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StartCountTexture.h" />
+    <ClInclude Include="StartTexture.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TitleTexture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

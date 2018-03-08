@@ -64,6 +64,30 @@
     <Filter Include="ソース ファイル\bloom">
       <UniqueIdentifier>{e32d7f11-5e53-4c9f-8e74-7783af1aa4f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\CubeMap">
+      <UniqueIdentifier>{57ea531e-1e80-4fed-946a-17d6bb2e496b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GoalTexture">
+      <UniqueIdentifier>{f0bd7b3a-ec18-4e5f-817f-c5d78726f37f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CSprite">
+      <UniqueIdentifier>{df542ea0-d631-4a3f-a57e-7f4365390de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameTimeTexture">
+      <UniqueIdentifier>{70c2c058-fe95-4e17-874b-1005ed45ad8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Title">
+      <UniqueIdentifier>{c32ba984-a91a-46f5-803f-2b5d3f8a052b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SceneSprite">
+      <UniqueIdentifier>{b2b92c55-2308-4367-b3c3-5065e78eb515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\StartTexture">
+      <UniqueIdentifier>{0ed915da-bd84-4d42-aaf4-01f4edcf9090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\StartCountTexture">
+      <UniqueIdentifier>{18f6ef71-6012-4889-8722-ea78def8a26d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -147,11 +171,29 @@
     <ClCompile Include="Bloom.cpp">
       <Filter>ソース ファイル\bloom</Filter>
     </ClCompile>
-    <ClCompile Include="Clear.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>ソース ファイル\CubeMap</Filter>
     </ClCompile>
-    <ClCompile Include="ClearTexture.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>ソース ファイル\CSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimeTexture.cpp">
+      <Filter>ソース ファイル\GameTimeTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleTexture.cpp">
+      <Filter>ソース ファイル\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalTexture.cpp">
+      <Filter>ソース ファイル\GoalTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSprite.cpp">
+      <Filter>ソース ファイル\SceneSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="StartTexture.cpp">
+      <Filter>ソース ファイル\StartTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="StartCountTexture.cpp">
+      <Filter>ソース ファイル\StartCountTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,20 +284,38 @@
     <ClInclude Include="MainRenderTarget.h">
       <Filter>ソース ファイル\MainRenderTarget</Filter>
     </ClInclude>
-    <ClInclude Include="courcePath.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="CCourcePath.h">
       <Filter>ソース ファイル\CCourcePath</Filter>
     </ClInclude>
     <ClInclude Include="Bloom.h">
       <Filter>ソース ファイル\bloom</Filter>
     </ClInclude>
-    <ClInclude Include="Clear.h">
-      <Filter>ソース ファイル</Filter>
+    <ClInclude Include="CubeMap.h">
+      <Filter>ソース ファイル\CubeMap</Filter>
     </ClInclude>
-    <ClInclude Include="ClearTexture.h">
-      <Filter>ソース ファイル</Filter>
+    <ClInclude Include="courcePath.h">
+      <Filter>ソース ファイル\CCourcePath</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>ソース ファイル\CSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimeTexture.h">
+      <Filter>ソース ファイル\GameTimeTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleTexture.h">
+      <Filter>ソース ファイル\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalTexture.h">
+      <Filter>ソース ファイル\GoalTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSprite.h">
+      <Filter>ソース ファイル\SceneSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="StartTexture.h">
+      <Filter>ソース ファイル\StartTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="StartCountTexture.h">
+      <Filter>ソース ファイル\StartCountTexture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

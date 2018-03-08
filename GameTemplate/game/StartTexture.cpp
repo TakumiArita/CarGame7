@@ -1,21 +1,22 @@
 #include "stdafx.h"
-#include "ClearTexture.h"
+#include "StartTexture.h"
+#include "SceneManager.h"
 
 
-ClearTexture::ClearTexture()
+StartTexture::StartTexture()
 {
 }
 
-ClearTexture::~ClearTexture()
+StartTexture::~StartTexture()
 {
 }
 
-void ClearTexture::Init()
+void StartTexture::Init()
 {
 	D3DXCreateTextureFromFileEx(
 		//Direct3Dデバイス
 		g_pd3dDevice,
-		"Assets/modelData/Goal1.png",
+		"Assets/modelData/Start.png",
 		FRAME_BUFFER_WIDTH + 100,
 		FRAME_BUFFER_HEIGHT + 100,
 		0,
@@ -31,12 +32,12 @@ void ClearTexture::Init()
 	);
 }
 
-void ClearTexture::Update()
+void StartTexture::Update()
 {
 
 }
 
-void ClearTexture::Draw()
+void StartTexture::Draw()
 {
 
 }

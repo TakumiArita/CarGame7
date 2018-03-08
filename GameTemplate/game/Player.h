@@ -54,6 +54,10 @@ public:
 	{
 		return CirclingTimes;
 	}
+	int GetGameTimer()
+	{
+		return gameTime0;
+	}
 private:
 	SkinModel           model;
 	SkinModelData       modelData;
@@ -79,6 +83,8 @@ private:
 	D3DXVECTOR3			moveDir = {-1.0f, 0.0f, 0.0f};	//車の進行方向。
 	//止まっているタイマー
 	int stoptimer;
+	//ゲームのタイマー
+	float gameTime0;
 	//加速タイマー
 	int accelerationtimer;
 	//失敗したタイマー
@@ -89,7 +95,7 @@ private:
 	//プレイヤーの回転
 	float qcamera;
 	//周回回数
-	int CirclingTimes = NULL;
+	int CirclingTimes = 0;
 	//エッジのフラグ最初。
 	bool firstEdgeNoFlag = false;
 	//エッジのフラグ最後。

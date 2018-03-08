@@ -12,3 +12,6 @@ extern EffectManager*			g_effectManager;
 //âÊñ ÉTÉCÉY1/2
 const int FRAME_BUFFER_WIDTH = 640;
 const int FRAME_BUFFER_HEIGHT = 360;
+
+const int CFRAME_BUFFER_WIDTH = 1;
+const int CFRAME_BUFFER_HEIGHT = 1;
