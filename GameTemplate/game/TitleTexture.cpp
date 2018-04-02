@@ -8,6 +8,13 @@ TitleTexture::TitleTexture()
 
 TitleTexture::~TitleTexture()
 {
+	if (ss != NULL)
+	{
+		delete ss;
+
+		ss->Update();
+	}
+	//delete ss;
 }
 
 void TitleTexture::Init()
@@ -29,6 +36,7 @@ void TitleTexture::Init()
 		NULL,
 		&pTexture
 	);
+	ss = new CSoundSource;
 }
 
 void TitleTexture::Update()
@@ -39,4 +47,25 @@ void TitleTexture::Update()
 void TitleTexture::Draw()
 {
 
+}
+
+void TitleTexture::TitleSound()
+{
+	if (soundtime <= 0)
+	{
+		ss = new CSoundSource;
+		ss->Init("Assets/sound/se_maoudamashii_effect02.wav");
+		ss->SetVolume(0.1f);
+		ss->Play(false);
+	}
+	soundtime += 1;
+
+	if (soundtime >= 70)
+	{
+		soundtime = 0;
+	}
+	if (ss != NULL)
+	{
+		ss->Update();
+	}
 }

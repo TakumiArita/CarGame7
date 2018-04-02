@@ -8,12 +8,15 @@ Camera::Camera()
 	//Near = 700.0f;
 	//どこまでカメラが映せるかの範囲。
 	//Far = 100.0f;
-	Far = 700.0f;
+	//Far = 700.0f;
+	//Far = 1000.0f;
+	Far = 5000.0f;
 	aspect = (float)FRAME_BUFFER_WIDTH / (float)FRAME_BUFFER_HEIGHT;
 }
 //デストラクタ
 Camera::~Camera()
 {
+
 }
 //アスペクト比を設定。
 void Camera::SetAspect(float _aspect)

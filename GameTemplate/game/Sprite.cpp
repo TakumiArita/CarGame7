@@ -17,6 +17,7 @@ void Sprite::Init()
 	);
 	gametimetexture.Init();
 	startcounttexture.Init();
+	roadaroundfrequencytexture.Init();
 }
 
 void Sprite::Draw()
@@ -61,14 +62,41 @@ void Sprite::Draw()
 		ppSprite->Draw(
 			startcounttexture.pTexture[startcounttexture.starttime],
 			NULL,
-			&(D3DXVECTOR3(-300.0f, -50.0f, 0.0f)),
+			&(D3DXVECTOR3(-300.0f, -30.0f, 0.0f)),
 			&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 			(D3DCOLOR_ARGB(255, 255, 255, 255))
 		);
 	}
-
+	//周回回数のテクスチャを表示させる。
+	//if(roadaroundfrequencytexture)
+	/*      1 / 2     */
+	/*      1      */
+	ppSprite->Draw(
+		roadaroundfrequencytexture.pTexture[roadaroundfrequencytexture.GetAroundTexture()],
+		NULL,
+		&(D3DXVECTOR3(-660.0f, -0.0f, 0.0f)),
+		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
+		(D3DCOLOR_ARGB(255, 255, 255, 255))
+	);
+	/*      /       */
+	ppSprite->Draw(
+		roadaroundfrequencytexture.pTexture_Around,
+		NULL,
+		&(D3DXVECTOR3(-670.0f, -25.0f, 0.0f)),
+		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
+		(D3DCOLOR_ARGB(255, 255, 255, 255))
+	);
+	/*      2      */
+	ppSprite->Draw(
+		roadaroundfrequencytexture.pTexture_No3,
+		NULL,
+		&(D3DXVECTOR3(-680.0f, -50.0f, 0.0f)),
+		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
+		(D3DCOLOR_ARGB(255, 255, 255, 255))
+	);
 
 	gametimetexture.Update();
 	startcounttexture.Update();
+	roadaroundfrequencytexture.Update();
 	ppSprite->End();
 }

@@ -18,6 +18,7 @@
 
 Player::Player()
 {              
+
 }
 
 Player::~Player()
@@ -26,6 +27,8 @@ Player::~Player()
 		//normalMapがNULLじゃないならロードされているので解放する。
 		normalMap->Release();
 	}
+	//ss->Release();
+
 }
 	
 void Player::Init()
@@ -76,7 +79,7 @@ void Player::Init()
 
 	//コースパスの座標確認にプレイヤーの座標を使う。
 	//characterController.Init(0.3f, 1.0f, D3DXVECTOR3(0.0f, 20.0f, 0.0f));
-	characterController.Init(0.3f, 1.0f, D3DXVECTOR3(10.0f, 20.0f, 0.0f));
+	characterController.Init(0.3f, 1.0f, D3DXVECTOR3(0.0f, 5.0f, 0.0f));
 	//重力の設定
 
 	//characterController.SetGravity(-35.0f);
@@ -91,6 +94,8 @@ void Player::Init()
 	lookcamera = -90.0f;
 	//プレイヤーの初期化
 	qcamera = -90.0f;
+	scenemanager->soundEngine.Init();
+	ss = new CSoundSource;
 }
 
 void Player::Update()
@@ -153,8 +158,52 @@ void Player::Update()
 		{
 			//プレイヤーの速度。
 			moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -10.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
+			if (playerKeyflag <= 0/*keyflag == false*/)
+			{
+				//std::unique_ptr<CSoundSource> se(new CSoundSource);
+				ss = new CSoundSource;
+				ss->Init("Assets/sound/C.wav");
+				ss->SetVolume(0.1f);
+				ss->Play(false);
+			}
+			playerKeyflag += 1;
+			if (playerKeyflag > 10)
+			{
+				playerKeyflag = 0;
+			}
+			
+			//if (scenemanager->soundSource.Getm_isPlaying() == false)
+			//{
+			//	//std::unique_ptr<CSoundSource> se(new CSoundSource);
+			//	CSoundSource* ss = new CSoundSource;     //サウンド
+			//	ss->Init("Assets/sound/Car_Test1.wav");
+			//	ss->Play(true);
+			//	//delete ss;
+			//	keyflag = true;
+			//}
 		}
+		else if(playerKeyflag > 0)
+		{
+			playerKeyflag = 0;
+		}
+		//scenemanager->soundEngine.Release();
+		//if (keyflag == true)
+		//{
+		//	ss = new CSoundSource;
+		//	ss->Init("Assets/sound/C.wav");
+		//	ss->SetVolume(0.005f);
+		//	ss->Play(false);
+
+		//	keyflag = false;
+		//}
+
 	}
+
+	if (ss != NULL)
+	{
+		ss->Update();
+	}
+
 
 	//上//
 	//if (GetAsyncKeyState('W') || pad.IsPress(pad.enButtonB))
@@ -184,7 +233,7 @@ void Player::Update()
 	//初期位置に戻る
 	if (GetAsyncKeyState('O'))
 	{
-		characterController.SetPosition(D3DXVECTOR3(10.0f, 20.0f, 0.0f));
+		characterController.SetPosition(D3DXVECTOR3(0.0f, 5.0f, 0.0f));
 		lookcamera = -90.0f;
 		qcamera = -90.0f;
 		CirclingTimes = 0;

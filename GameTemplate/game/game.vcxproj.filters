@@ -88,6 +88,27 @@
     <Filter Include="ソース ファイル\StartCountTexture">
       <UniqueIdentifier>{18f6ef71-6012-4889-8722-ea78def8a26d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\SkyBox">
+      <UniqueIdentifier>{59a049bc-ae2b-4952-b061-3747657e3ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sound">
+      <UniqueIdentifier>{d46f8b6d-c1ac-4ae6-bb4d-9a6bd50ad9f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sound\CSoundSource">
+      <UniqueIdentifier>{bf33b8c3-3cb5-4bf6-ba4a-7f054d33a794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sound\CSoundEngine">
+      <UniqueIdentifier>{82c4ba89-695f-48a5-94b8-bf007e0a9ae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sound\CWaveFile">
+      <UniqueIdentifier>{c16b9862-e0a2-4d79-b3b7-213313546429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CWaveFileBank">
+      <UniqueIdentifier>{4da9ad77-b547-4215-98b8-7cb857034850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\RoadAroundFrequency">
+      <UniqueIdentifier>{e8364ec2-03c5-49c6-b537-54a734e9a646}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -194,6 +215,24 @@
     </ClCompile>
     <ClCompile Include="StartCountTexture.cpp">
       <Filter>ソース ファイル\StartCountTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>ソース ファイル\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="CWaveFile.cpp">
+      <Filter>ソース ファイル\Sound\CWaveFile</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundSource.cpp">
+      <Filter>ソース ファイル\Sound\CSoundSource</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundEngine.cpp">
+      <Filter>ソース ファイル\Sound\CSoundEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="CWaveFileBank.cpp">
+      <Filter>ソース ファイル\CWaveFileBank</Filter>
+    </ClCompile>
+    <ClCompile Include="RoadAroundFrequencyTexture.cpp">
+      <Filter>ソース ファイル\RoadAroundFrequency</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +355,24 @@
     </ClInclude>
     <ClInclude Include="StartCountTexture.h">
       <Filter>ソース ファイル\StartCountTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>ソース ファイル\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="CWaveFile.h">
+      <Filter>ソース ファイル\Sound\CWaveFile</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundSource.h">
+      <Filter>ソース ファイル\Sound\CSoundSource</Filter>
+    </ClInclude>
+    <ClInclude Include="CSoundEngine.h">
+      <Filter>ソース ファイル\Sound\CSoundEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CWaveFileBank.h">
+      <Filter>ソース ファイル\CWaveFileBank</Filter>
+    </ClInclude>
+    <ClInclude Include="RoadAroundFrequencyTexture.h">
+      <Filter>ソース ファイル\RoadAroundFrequency</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

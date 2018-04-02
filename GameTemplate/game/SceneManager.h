@@ -12,7 +12,11 @@
 #include "StartTexture.h"
 #include "GameTimeTexture.h"
 #include "StartCountTexture.h"
+#include "RoadAroundFrequencyTexture.h"
 #include "Sprite.h"
+#include "SkyBox.h"
+#include "CSoundSource.h"
+#include "CSoundEngine.h"
 //#include "locationInfo.h"
 
 class SceneManager
@@ -65,15 +69,19 @@ public:
 	//プレイヤー
 	Player            player;
 	//マップ
-	Map                map;
-	//タイトル表示
+	Map               map;
+	//背景
+	SkyBox            skybox;
+	//タイトル表示。
 	TitleTexture titletexture;
 	//スタートNoの表示。
 	StartCountTexture startcounttexture;
-	//ゴール表示
+	//ゴール表示。
 	GoalTexture  goaltexture;
-	//スタートの表示
+	//スタートの表示。
 	StartTexture starttexture;
+	//周回回数の表示。
+	RoadAroundFrequencyTexture roadaroundfrequencytexture;
 	//タイトル、ゴールなどのスプライト。
 	SceneSprite  scenesprite;
 
@@ -92,6 +100,12 @@ public:
 	CCourcePath        courcePath;
 	CCourcePath::SCourceEdge  edge;
 
+	//サウンド
+	CSoundEngine soundEngine;
+	CSoundSource soundSource;
+	CSoundSource* ss = NULL;     //サウンド
+
+
 private:
 	//視点
 	D3DXVECTOR3 toCameraPos;
@@ -101,10 +115,10 @@ private:
 	D3DXVECTOR3 eyeR;
 	//int gameTime;
 	bool Titleflag = false;
+	bool S_flag = false;
+	int soundtime = 0;
 };
 extern SceneManager*  scenemanager;
 extern ShadowMap      g_shadowmap;
 extern 	RenderTarget* renderTarget;
 extern 	Primitive*    quadPrimitive;
-
-

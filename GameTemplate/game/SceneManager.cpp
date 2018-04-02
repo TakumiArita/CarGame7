@@ -33,6 +33,12 @@ void SceneManager::Init()
 	//mainRenderTarget.InitMainRenderTarget();
 	//mainRenderTarget.InitQuadPrimitive();
 	//gameTime = -100;
+	//背景初期化。
+	skybox.Init();
+	//サウンドエンジン初期化。
+	soundEngine.Init();
+	ss = new CSoundSource;
+
 }
 void SceneManager::Update()
 {
@@ -52,8 +58,34 @@ void SceneManager::Update()
 	goaltexture.Update();
 	//ゲーム時間の更新
 	gametimetexture.Update();
+	//周回回数の更新
+	roadaroundfrequencytexture.Update();
 	//プレイヤーの更新
 	player.Update();
+	//soundSource.Update();
+	//if (Titleflag == true)
+	//{
+	//	if (soundtime <= 0)
+	//	{
+	//		ss = new CSoundSource;
+	//		ss->Init("Assets/sound/se_maoudamashii_effect08.wav");
+	//		ss->SetVolume(0.1f);
+	//		ss->Play(false);
+	//	}
+	//	soundtime += 1;
+	//	if(soundtime >= 80)
+	//	{
+	//		soundtime = 0;
+	//	}
+
+	//}
+
+	//if (ss != NULL)
+	//{
+	//	ss->Update();
+	//}
+
+	soundSource.Update();
 
 	D3DXVECTOR3 targetPos = player.GetPosition();
 	eyePos = targetPos;                         //カメラの注視点を中心にする。
@@ -85,6 +117,7 @@ void SceneManager::Update()
 	mainrendertarget.CopyMainRTToCurrentRT();
 	*/
 	//gameTime++;
+	skybox.Update();
 }
 
 void SceneManager::Draw()
@@ -92,6 +125,8 @@ void SceneManager::Draw()
 	if (Titleflag == false)
 	{
 		scenesprite.TitleDraw();
+		titletexture.TitleSound();
+
 	}
 	else if (Titleflag == true)
 	{
@@ -127,7 +162,6 @@ void SceneManager::Draw()
 		{
 			scenesprite.StartDraw();
 		}
+		skybox.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, false);
 	}
 }
-
-

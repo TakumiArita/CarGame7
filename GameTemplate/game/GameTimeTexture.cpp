@@ -74,8 +74,8 @@ void GameTimeTexture::Update()
 		////    1    2    3    4    ////
 		////////////////////////////////
 		//4
-		gametime[3] = gametimer / 10;
-		gametime[3] = gametime[3] % 10;
+		gametime[3] = gametimer / 10;     
+		gametime[3] = gametime[3] % 10;   //Ç¢Ç¬0Ç…ñﬂÇ∑Ç©ÅB
 		//3
 		gametime[2] = gametimer / 100;
 		gametime[2] = gametime[2] % 10;
@@ -86,7 +86,7 @@ void GameTimeTexture::Update()
 		//gametime[0] = gametimer / 10000;
 		//gametime[0] = gametime[0] % 10;
 
-		gametime[0] = gametimer / 10000;
+		gametime[0] = gametimer / 6000;
 		gametime[0] = gametime[0] % 10;
 
 		//ÉSÅ[ÉãÇ∑ÇÈÇ‹Ç≈ÅB

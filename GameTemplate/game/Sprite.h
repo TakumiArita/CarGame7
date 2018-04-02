@@ -1,6 +1,7 @@
 #pragma once
 #include "GameTimeTexture.h"
 #include "StartCountTexture.h"
+#include "RoadAroundFrequencyTexture.h"
 
 class Sprite
 {
@@ -14,5 +15,6 @@ public:
 
 	GameTimeTexture gametimetexture;
 	StartCountTexture    startcounttexture;
+	RoadAroundFrequencyTexture roadaroundfrequencytexture;
 };
 

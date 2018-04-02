@@ -2,6 +2,7 @@
 
 #include "myEngine\Physics\CharacterController.h"
 #include "myEngine\HID\Pad.h"
+#include "CSoundSource.h"
 using namespace std;
 class Player
 {
@@ -58,6 +59,14 @@ public:
 	{
 		return gameTime0;
 	}
+	void SetSoundflag(bool flg)
+	{
+		Soundflag = flg;
+	}
+	void SetSound2flag(bool flg)
+	{
+		Sound2flag = flg;
+	}
 private:
 	SkinModel           model;
 	SkinModelData       modelData;
@@ -66,6 +75,8 @@ private:
 	Pad                 pad;                 //パッド
 	D3DXQUATERNION      rotation;            //回転
 	CharacterController characterController; //キャラクターコントローラ
+
+
 	D3DXVECTOR3 StartToPlayerDirection;      //ノード(始点)からプレイヤーのベクトル。
 	D3DXVECTOR3 NormalStartToPlayerDirection;//ノード(始点)からプレイヤーの方向ベクトル。
 	D3DXVECTOR3 EndToPlayerDirection;        //ノード(終点)からプレイヤーのベクトル。
@@ -102,4 +113,11 @@ private:
 	bool lastEdgeNoFlag = false;
 	//法線マップ
 	LPDIRECT3DTEXTURE9 normalMap = NULL;
+
+	bool Soundflag = false;
+	bool Sound2flag = false;
+	bool keyflag = false;
+	int playerKeyflag = 0;
+
+	CSoundSource* ss = NULL;     //サウンド
 };

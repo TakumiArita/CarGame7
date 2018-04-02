@@ -7,11 +7,13 @@
 #include "Primitive.h"
 #include "CCourcePath.h"
 #include "game.h"
+#include "CSoundEngine.h"
 
 Game* game;
 SceneManager* scenemanager;
 RenderTarget* renderTarget;
 ShadowMap     g_shadowmap;
+CSoundEngine* soundEngine;
 
 /*
 //-----------------------------------------------------------------------------
@@ -96,6 +98,7 @@ void Terminate()
 	delete game;
 	delete scenemanager;
 	delete g_effectManager;
+	soundEngine->Release();
 	//scenemanager->mainrendertarget.GetTerminate();
 	g_pd3dDevice->Release();
 	g_pD3D->Release();

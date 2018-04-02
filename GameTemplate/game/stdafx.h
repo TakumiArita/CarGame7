@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 
+#pragma comment (lib, "winmm.lib")
 #include "btBulletDynamicsCommon.h"
 #include "BulletCollision\CollisionDispatch\btGhostObject.h"
 
