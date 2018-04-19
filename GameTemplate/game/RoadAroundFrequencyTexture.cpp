@@ -84,7 +84,7 @@ void RoadAroundFrequencyTexture::Update()
 	{
 		aroundtexture = scenemanager->player.GetCirclingTimes();
 	}
-	if (GetAsyncKeyState('O'))
+	if (GetAsyncKeyState('O') || scenemanager->GetTitleFlag() != true)
 	{
 		aroundtexture = 0;
 	}

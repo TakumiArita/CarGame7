@@ -64,9 +64,6 @@
     <Filter Include="ソース ファイル\bloom">
       <UniqueIdentifier>{e32d7f11-5e53-4c9f-8e74-7783af1aa4f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\CubeMap">
-      <UniqueIdentifier>{57ea531e-1e80-4fed-946a-17d6bb2e496b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\GoalTexture">
       <UniqueIdentifier>{f0bd7b3a-ec18-4e5f-817f-c5d78726f37f}</UniqueIdentifier>
     </Filter>
@@ -108,6 +105,9 @@
     </Filter>
     <Filter Include="ソース ファイル\RoadAroundFrequency">
       <UniqueIdentifier>{e8364ec2-03c5-49c6-b537-54a734e9a646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Item">
+      <UniqueIdentifier>{a0951e95-e7d4-4576-a39d-7737d3810d51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +192,6 @@
     <ClCompile Include="Bloom.cpp">
       <Filter>ソース ファイル\bloom</Filter>
     </ClCompile>
-    <ClCompile Include="CubeMap.cpp">
-      <Filter>ソース ファイル\CubeMap</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル\CSprite</Filter>
     </ClCompile>
@@ -233,6 +230,15 @@
     </ClCompile>
     <ClCompile Include="RoadAroundFrequencyTexture.cpp">
       <Filter>ソース ファイル\RoadAroundFrequency</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEmitter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +335,6 @@
     <ClInclude Include="Bloom.h">
       <Filter>ソース ファイル\bloom</Filter>
     </ClInclude>
-    <ClInclude Include="CubeMap.h">
-      <Filter>ソース ファイル\CubeMap</Filter>
-    </ClInclude>
     <ClInclude Include="courcePath.h">
       <Filter>ソース ファイル\CCourcePath</Filter>
     </ClInclude>
@@ -373,6 +376,15 @@
     </ClInclude>
     <ClInclude Include="RoadAroundFrequencyTexture.h">
       <Filter>ソース ファイル\RoadAroundFrequency</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>ソース ファイル\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -52,7 +52,7 @@ void SkyBox::Init()
 	m_light.SetAmbientLight(D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	//ƒ‚ƒfƒ‹‚Ìƒ[ƒh
-	m_skinmodelData.LoadModelData("Assets/modelData/skybox5.X", &m_animation);
+	m_skinmodelData.LoadModelData("Assets/modelData/skybox6.X", &m_animation);
 
 
 	m_skinmodel.Init(&m_skinmodelData);

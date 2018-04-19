@@ -10,11 +10,12 @@ public:
 	~Sprite();
 	void Init();
 	void Draw();
+	void SaveGameTimeDraw();
 
 	LPD3DXSPRITE ppSprite;
 
-	GameTimeTexture gametimetexture;
-	StartCountTexture    startcounttexture;
-	RoadAroundFrequencyTexture roadaroundfrequencytexture;
+	//GameTimeTexture gametimetexture;
+	//StartCountTexture    startcounttexture;
+	//RoadAroundFrequencyTexture roadaroundfrequencytexture;
 };
 

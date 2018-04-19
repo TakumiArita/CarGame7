@@ -27,8 +27,6 @@ Player::~Player()
 		//normalMapがNULLじゃないならロードされているので解放する。
 		normalMap->Release();
 	}
-	//ss->Release();
-
 }
 	
 void Player::Init()
@@ -100,49 +98,48 @@ void Player::Init()
 
 void Player::Update()
 {
-
 	//パッドの入力で動かす。
 	D3DXVECTOR3 moveSpeed = characterController.GetMoveSpeed();
 
 	D3DXVECTOR3 direction = GetPosition();
-	D3DXVECTOR3 CCPListdirection;
+
+	//D3DXVECTOR3 CCPListdirection;
+
 	//プレイヤー回転の初期化
 	D3DXQUATERNION addRot;
 	D3DXQuaternionIdentity(&addRot);
 
 	//カメラの回転
-	if (GetAsyncKeyState(VK_RIGHT))
+
+	if (pad->GetLStickXF() > 0)
+	{
+		lookcamera -= pad->GetLStickXF();
+		if (pad->GetRStickXF() > 0)
+		{
+			lookcamera -= pad->GetRStickXF();
+		}
+	}
+	else if (GetAsyncKeyState(VK_RIGHT))
 	{
 		lookcamera -= 1.0f;
-		if (GetAsyncKeyState('S'))
+	}
+
+
+
+
+	if (pad->GetLStickXF() < 0)
+	{
+		lookcamera -= pad->GetLStickXF();
+		if (pad->GetRStickXF() < 0)
 		{
-			lookcamera -= 1.5f;
+			lookcamera -= pad->GetRStickXF();
 		}
 	}
-	if (GetAsyncKeyState(VK_LEFT))
+	else if (GetAsyncKeyState(VK_LEFT))
 	{
 		lookcamera += 1.0f;
-		if (GetAsyncKeyState('S'))
-		{
-			lookcamera += 1.5f;
-		}
 	}
-	if (GetAsyncKeyState(VK_UP))
-	{
-		uplookcamera += 1.0f;
-		if (GetAsyncKeyState('S'))
-		{
-			uplookcamera += 1.5f;
-		}
-	}
-	if (GetAsyncKeyState(VK_DOWN))
-	{
-		uplookcamera -= 1.0f;
-		if (GetAsyncKeyState('S'))
-		{
-			uplookcamera -= 1.5f;
-		}
-	}
+
 
 #ifndef ENABLE_ACCEL_SAMPLE 
 	float accel = 0.025f;
@@ -153,67 +150,42 @@ void Player::Update()
 	//スタートのカウント。
 	if (scenemanager->startcounttexture.GetStartCountTimer() <= 0)
 	{
-		//上//
-		if (GetAsyncKeyState('W') || pad.IsPress(pad.enButtonB))
+		if (GetCirclingTimes() < 3)
 		{
-			//プレイヤーの速度。
-			moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -10.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
-			if (playerKeyflag <= 0/*keyflag == false*/)
+			//上//
+			if (GetAsyncKeyState('W') || pad->IsPress(pad->enButtonB))
 			{
-				//std::unique_ptr<CSoundSource> se(new CSoundSource);
-				ss = new CSoundSource;
-				ss->Init("Assets/sound/C.wav");
-				ss->SetVolume(0.1f);
-				ss->Play(false);
+				//プレイヤーの速度。
+				moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -10.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
+				if (scenemanager->item.GetItemFlag() == true)
+				{
+					moveSpeed *= 1.5f;
+				}
+				if (ss == NULL)
+				{
+					ss = new CSoundSource;
+					ss->Init("Assets/sound/C.wav");
+					ss->SetVolume(0.6f);
+					ss->Play(true);
+				}
 			}
-			playerKeyflag += 1;
-			if (playerKeyflag > 10)
+			else if (ss != NULL)
 			{
-				playerKeyflag = 0;
+				PlayerRelease();
 			}
-			
-			//if (scenemanager->soundSource.Getm_isPlaying() == false)
-			//{
-			//	//std::unique_ptr<CSoundSource> se(new CSoundSource);
-			//	CSoundSource* ss = new CSoundSource;     //サウンド
-			//	ss->Init("Assets/sound/Car_Test1.wav");
-			//	ss->Play(true);
-			//	//delete ss;
-			//	keyflag = true;
-			//}
-		}
-		else if(playerKeyflag > 0)
-		{
-			playerKeyflag = 0;
-		}
-		//scenemanager->soundEngine.Release();
-		//if (keyflag == true)
-		//{
-		//	ss = new CSoundSource;
-		//	ss->Init("Assets/sound/C.wav");
-		//	ss->SetVolume(0.005f);
-		//	ss->Play(false);
 
-		//	keyflag = false;
-		//}
+			if (ss != NULL)
+			{
+				ss->Update();
+			}
+		}
 
 	}
 
-	if (ss != NULL)
-	{
-		ss->Update();
-	}
-
-
-	//上//
-	//if (GetAsyncKeyState('W') || pad.IsPress(pad.enButtonB))
-	//{
-	//	//プレイヤーの速度。
-	//	moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -10.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
-	//}
 
 	//摩擦抵抗
-	moveSpeed *= 0.95f;
+	//moveSpeed *= 0.95f;
+	moveSpeed *= 0.963f;
 #else
 	float	accel = 0.0f;
 	if (pad.IsPress(pad.enButtonRB2)) {
@@ -223,20 +195,22 @@ void Player::Update()
 	//摩擦抵抗。
 	moveSpeed *= 0.98f;
 #endif
-	if (!pad.IsPress(pad.enButtonB))
+	if (!pad->IsPress(pad->enButtonB))
 	{
 		failuretimer = 0;
 		accelerationtimer = 0;
 		stoptimer = 0;
 	}
 
-	//初期位置に戻る
-	if (GetAsyncKeyState('O'))
+	
+	//Oで初期位置に戻る    ||        //タイトルまたは、タイトルに戻った時の処理。
+  	if (GetAsyncKeyState('O') || scenemanager->GetTitleFlag() != true)
 	{
 		characterController.SetPosition(D3DXVECTOR3(0.0f, 5.0f, 0.0f));
 		lookcamera = -90.0f;
 		qcamera = -90.0f;
 		CirclingTimes = 0;
+		moveSpeed *= 0.0f;
 	}
 
 	if (GetAsyncKeyState('J'))
@@ -249,16 +223,9 @@ void Player::Update()
 			characterController.Jump();
 		}
 	}
-
-	//キャラクタが動く速度を設定。
-	characterController.SetMoveSpeed(moveSpeed);
-	//キャラクタコントローラーを実行。
-	characterController.Execute();
-
-	animation.Update(1.0f / 60.0f);
-	model.UpdateWorldMatrix(characterController.GetPosition(), addRot, D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 	//パッドの更新
-	pad.Update();
+	//pad->Update();
+
 	//方向ベクトルを正規化する。
 	//D3DXVec3Normalize(&SecondmoveSpeed, &moveSpeed);
 	int edgeNo = -1;
@@ -271,7 +238,7 @@ void Player::Update()
 		NormalStartToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).startPos;
 		EndToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).endPos;
 		NormalEndToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).endPos;
-		
+
 		//XZ平面で計算する。
 		StartToPlayerDirection.y = 0.0f;
 		NormalStartToPlayerDirection.y = 0.0f;
@@ -313,14 +280,39 @@ void Player::Update()
 		lastEdgeNoFlag = true;
 	}
 	//最初と最後のエッジのflagがtrueになる且つ
+
+
+
+
 	//プレイヤーが最初のエッジを通る。
-	if (firstEdgeNoFlag == true && lastEdgeNoFlag == true && edgeNo == 0)
+	if (firstEdgeNoFlag == true && lastEdgeNoFlag == true && edgeNo == 0 && GetPosition().y > -2.0f && fallflag != true)
 	{
 		//周回回数更新する。
 		CirclingTimes++;
 		//エッジのflagをfalseにする。
 		firstEdgeNoFlag = false;
-		lastEdgeNoFlag  = false;
+		lastEdgeNoFlag = false;
+	}
+	else if (fallflag == true)
+	{
+		fallflag = false;
+		firstEdgeNoFlag = false;
+		lastEdgeNoFlag = false;
+	}
+	//落下処理。--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	if (GetPosition().y <= -2.0f)
+	{
+		fallflag = true;
+	}
+
+	if (GetPosition().y <= -10.0f)
+	{
+		characterController.SetPosition(D3DXVECTOR3(0.0f, 5.0f, 5.0f));
+		lookcamera = -90.0f;
+		qcamera = -90.0f;	
+		//characterController.SetPosition(D3DXVECTOR3(v3cp.x, 5.0f, v3cp.z));
+		moveSpeed *= 0.0f;
+
 	}
 	
 	if (edgeNo != -1) {
@@ -333,9 +325,26 @@ void Player::Update()
 			//MessageBox(NULL, "逆走してます。", "通知", MB_OK);
 		}
 	}
+
+
+	//キャラクタが動く速度を設定。
+	characterController.SetMoveSpeed(moveSpeed);
+	//キャラクタコントローラーを実行。
+	characterController.Execute();
+	animation.Update(1.0f / 60.0f);
+	model.UpdateWorldMatrix(characterController.GetPosition(), addRot, D3DXVECTOR3(1.0f, 1.0f, 1.0f));
 }
 
 void Player::Draw(D3DXMATRIX ViewMatrix, D3DXMATRIX ProjectionMatrix, bool shadowmapD, bool shadowmapR, bool Pspec)
 {
 	model.Draw(&ViewMatrix, &ProjectionMatrix, shadowmapD, shadowmapR, Pspec);
+}
+
+void Player::PlayerRelease()
+{
+	if (ss != NULL) {
+		delete ss;
+		ss = NULL;
+	}
+
 }

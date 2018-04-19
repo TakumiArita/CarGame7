@@ -7,12 +7,14 @@
 #include "Primitive.h"
 #include "CCourcePath.h"
 #include "game.h"
+#include "myEngine\HID\Pad.h"
 #include "CSoundEngine.h"
 
 Game* game;
 SceneManager* scenemanager;
 RenderTarget* renderTarget;
 ShadowMap     g_shadowmap;
+Pad*          pad;
 CSoundEngine* soundEngine;
 
 /*
@@ -61,6 +63,8 @@ void Init()
 
 	scenemanager = new SceneManager;
 	scenemanager->Init();
+
+	pad = new Pad;
 }
 //-----------------------------------------------------------------------------
 // Name: •`‰æˆ—B
@@ -87,6 +91,8 @@ void Update()
 {
 	game->Update();
 	scenemanager->Update();
+	pad->Update();
+
 	//OutputDebugString("Test");
 	//MessageBox(NULL, "Test", "’Ê’m", MB_OK);
 }
@@ -97,6 +103,7 @@ void Terminate()
 {
 	delete game;
 	delete scenemanager;
+	delete pad;
 	delete g_effectManager;
 	soundEngine->Release();
 	//scenemanager->mainrendertarget.GetTerminate();

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "myEngine\Physics\CharacterController.h"
-#include "myEngine\HID\Pad.h"
 #include "CSoundSource.h"
 using namespace std;
 class Player
@@ -17,6 +16,7 @@ public:
 	void Update();
 	//描画
 	void Draw(D3DXMATRIX ViewMatrix, D3DXMATRIX ProjectionMatrix, bool shadowmapD, bool shadowmapR, bool Pspec);
+	void PlayerRelease();
 
 	//ポジション取得
 	D3DXVECTOR3 GetPosition()
@@ -27,10 +27,6 @@ public:
 	float GetLookCamera()
 	{
 		return lookcamera;
-	}
-	float GetUpLookCamera()
-	{
-		return uplookcamera;
 	}
 	//プレイヤーとカメラの回転
 	float GetQCamera()
@@ -72,7 +68,6 @@ private:
 	SkinModelData       modelData;
 	Animation           animation;
 	Light               light;               //ライト
-	Pad                 pad;                 //パッド
 	D3DXQUATERNION      rotation;            //回転
 	CharacterController characterController; //キャラクターコントローラ
 
@@ -102,7 +97,6 @@ private:
 	int failuretimer;
 	//カメラの向き
 	float lookcamera;
-	float uplookcamera;
 	//プレイヤーの回転
 	float qcamera;
 	//周回回数
@@ -117,6 +111,7 @@ private:
 	bool Soundflag = false;
 	bool Sound2flag = false;
 	bool keyflag = false;
+	bool fallflag = false;
 	int playerKeyflag = 0;
 
 	CSoundSource* ss = NULL;     //サウンド

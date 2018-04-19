@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SceneSprite.h"
+#include "Scenemanager.h"
 
 
 SceneSprite::SceneSprite()
@@ -16,15 +17,15 @@ void SceneSprite::Init()
 		g_pd3dDevice,
 		&ppSprite
 	);
-	titletexture.Init();
-	goaltexture.Init();
-	starttexture.Init();
+	scenemanager->titletexture.Init();
+	scenemanager->goaltexture.Init();
+	scenemanager->starttexture.Init();
 }
 void SceneSprite::TitleDraw()
 {
 	ppSprite->Begin(0);
 	ppSprite->Draw(
-		titletexture.pTexture,
+		scenemanager->titletexture.pTexture,
 		NULL,
 		&(D3DXVECTOR3(10.0f, 0.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -36,7 +37,7 @@ void SceneSprite::GoalDraw()
 {
 	ppSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	ppSprite->Draw(
-		goaltexture.pTexture,
+		scenemanager->goaltexture.pTexture,
 		NULL,
 		&(D3DXVECTOR3(10.0f, 0.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -48,7 +49,7 @@ void SceneSprite::StartDraw()
 {
 	ppSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	ppSprite->Draw(
-		starttexture.pTexture,
+		scenemanager->starttexture.pTexture,
 		NULL,
 		&(D3DXVECTOR3(10.0f, 0.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),

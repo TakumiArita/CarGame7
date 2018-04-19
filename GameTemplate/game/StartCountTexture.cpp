@@ -62,7 +62,7 @@ void StartCountTexture::Update()
 			starttimer--;
 		}
 	}
-	if (GetAsyncKeyState('O'))
+	if (GetAsyncKeyState('O') || scenemanager->GetTitleFlag() != true)
 	{
 		starttimer = 300;
 	}

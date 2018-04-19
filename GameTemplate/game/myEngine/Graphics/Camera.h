@@ -94,4 +94,6 @@ public:
 	 *@brief	ƒJƒƒ‰‚Ì‰Šú‰»B
 	 */
 	void Init();
+
+	D3DXMATRIX GetInvRotateMat();
 };

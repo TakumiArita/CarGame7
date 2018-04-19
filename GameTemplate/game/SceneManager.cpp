@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SceneManager.h"
+#include "myEngine\HID\Pad.h"
 #include <iostream>
 
 SceneManager::SceneManager()
@@ -8,6 +9,11 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
+	if (gamess != NULL)
+	{
+		delete gamess;
+	}
+	gamess = NULL;
 }
 
 void SceneManager::Init()
@@ -22,6 +28,8 @@ void SceneManager::Init()
 	toCameraPos = { 25.0f,7.0f,0.0f };  //縦画面幅広
 	//プレイヤー初期化。
 	player.Init();
+	//アイテム初期化。
+	item.Init();
 	//シャドウマップ初期化。
 	g_shadowmap.Init();
 	//スプライトの初期化。
@@ -37,15 +45,25 @@ void SceneManager::Init()
 	skybox.Init();
 	//サウンドエンジン初期化。
 	soundEngine.Init();
-	ss = new CSoundSource;
+	//gamess = new CSoundSource;
+	
+
+	param.texturePath = "Mahouzin.png";
+	param.w = 0.5f;
+	param.h = 0.5f;
+	param.position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	param.intervalTime = 0.2f;
+	param.initSpeed = D3DXVECTOR3(0.0f, 2.0f, 0.0f);
+	particleemitter.Init(param);
 
 }
 void SceneManager::Update()
 {
-	if (GetAsyncKeyState(VK_SPACE))
+	if (GetAsyncKeyState(VK_SPACE) || pad->IsPress(pad->enButtonStart))
 	{
 		Titleflag = true;
 	}
+
 	//マップ更新
 	map.Update();
 	//タイトルのテクスチャの更新。
@@ -60,31 +78,23 @@ void SceneManager::Update()
 	gametimetexture.Update();
 	//周回回数の更新
 	roadaroundfrequencytexture.Update();
+	//アイテムの更新
+	item.Update();
 	//プレイヤーの更新
 	player.Update();
-	//soundSource.Update();
-	//if (Titleflag == true)
-	//{
-	//	if (soundtime <= 0)
-	//	{
-	//		ss = new CSoundSource;
-	//		ss->Init("Assets/sound/se_maoudamashii_effect08.wav");
-	//		ss->SetVolume(0.1f);
-	//		ss->Play(false);
-	//	}
-	//	soundtime += 1;
-	//	if(soundtime >= 80)
-	//	{
-	//		soundtime = 0;
-	//	}
 
-	//}
+	//particle.Update();
+	//particleemitter.Render(camera.GetViewMatrix(),camera.GetProjectionMatrix());
 
-	//if (ss != NULL)
-	//{
-	//	ss->Update();
-	//}
+	//particleemitter.Update();
+	//particle.Update();
 
+
+	GameSound();
+	if (gamess != NULL)
+	{
+		gamess->Update();
+	}
 	soundSource.Update();
 
 	D3DXVECTOR3 targetPos = player.GetPosition();
@@ -118,19 +128,23 @@ void SceneManager::Update()
 	*/
 	//gameTime++;
 	skybox.Update();
+
 }
 
 void SceneManager::Draw()
 {
+	//タイトル。
 	if (Titleflag == false)
 	{
-		scenesprite.TitleDraw();
 		titletexture.TitleSound();
-
+		scenesprite.TitleDraw();
+		player.PlayerRelease();
+		sprite.SaveGameTimeDraw();
 	}
+	//タイトルから遷移。
 	else if (Titleflag == true)
 	{
-
+		titletexture.TitleRelease();
 		//アルファブレンディングOFF
 		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 		//マップの描画
@@ -145,10 +159,10 @@ void SceneManager::Draw()
 		//プレイヤーの描画
 		player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
 		player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
+		item.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
 		//アルファブレンディングOFF
 		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-		//player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
-
+		particleemitter.Render(camera.GetViewMatrix(), camera.GetProjectionMatrix());
 		//シャドウマップ描画。
 		g_shadowmap.Draw();
 
@@ -156,6 +170,14 @@ void SceneManager::Draw()
 		if (player.GetCirclingTimes() > 2)
 		{
 			scenesprite.GoalDraw();
+			GoalBetweenTitle++;
+		}
+		if (GoalBetweenTitle >= 100)
+		{
+			gametimetexture.SaveUpdate();
+			Titleflag = false;
+			GoalBetweenTitle = 0;
+			GameSoundRelease();
 		}
 		//スタートのテクスチャの描画。
 		if (gametimetexture.GetGameTimer() > 0 && gametimetexture.GetGameTimer() <= 100)
@@ -164,4 +186,28 @@ void SceneManager::Draw()
 		}
 		skybox.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, false);
 	}
+}
+
+void SceneManager::GameSound()
+{
+
+	if (Titleflag == true)
+	{
+		if (gamess == NULL)
+		{
+			gamess = new CSoundSource;
+			gamess->Init("Assets/sound/holidays.wav");
+			gamess->SetVolume(0.5f);
+			gamess->Play(true);
+		}
+	}
+}
+
+void SceneManager::GameSoundRelease()
+{
+	if (gamess != NULL)
+	{
+		delete gamess;
+	}
+	gamess = NULL;
 }

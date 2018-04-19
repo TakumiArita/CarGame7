@@ -1,0 +1,87 @@
+﻿  stdafx.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  System.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  RigidBody.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Physics.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  MeshCollider.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CharacterController.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CapsuleCollider.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Pad.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  SkinModelData.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  SkinModel.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  EffectManager.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Camera.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Animation.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  main.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  game.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  TitleTexture.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  StartTexture.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  StartCountTexture.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Sprite.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  SpringCamera.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  コードを生成中...
+  コンパイル中...
+  SkyBox.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  ShadowMap.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  SceneSprite.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  SceneManager.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  RoadAroundFrequencyTexture.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Primitive.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Player.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  MapChip.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Map.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  MainRenderTarget.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  Item.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  GoalTexture.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  GameTimeTexture.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CWaveFileBank.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CWaveFile.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CVertexBuffer.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CSoundSource.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CSoundEngine.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CIndexBuffer.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  CCourcePath.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  コードを生成中...
+  コンパイル中...
+  Bloom.cpp
+c:\users\kbc16b01\desktop\cargame7 - コピー - コピー (2)\gametemplate\game\stdafx.h(13): fatal error C1083: include ファイルを開けません。'btBulletDynamicsCommon.h':No such file or directory
+  コードを生成中...

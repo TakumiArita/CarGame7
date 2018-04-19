@@ -2,10 +2,13 @@
 #include "Map.h"
 #include "myEngine/Physics/Physics.h"
 #include "Player.h"
+#include "Item.h"
 #include "ShadowMap.h"
 #include "MainRenderTarget.h"
 #include "RenderTarget.h"
 #include "Primitive.h"
+#include "ParticleEmitter.h"
+#include "Particle.h"
 #include "CCourcePath.h"
 #include "SceneSprite.h"
 #include "GoalTexture.h"
@@ -17,6 +20,7 @@
 #include "SkyBox.h"
 #include "CSoundSource.h"
 #include "CSoundEngine.h"
+#include "myEngine\HID\Pad.h"
 //#include "locationInfo.h"
 
 class SceneManager
@@ -32,6 +36,10 @@ public:
 	void Update();
 	//描画
 	void Draw();
+	//ゲーム中の音
+	void GameSound();
+	//ゲーム中の音のリリース
+	void GameSoundRelease();
 	/*
 	*@brief	カメラを取得。
 	 return カメラの変数
@@ -68,6 +76,8 @@ public:
 	Camera            camera;
 	//プレイヤー
 	Player            player;
+	//アイテム
+	Item              item;
 	//マップ
 	Map               map;
 	//背景
@@ -96,6 +106,11 @@ public:
 	MainRenderTarget mainRenderTarget;
 	//プリミティブ
 	Primitive quadPrimitive;
+	//パーティクル
+	Particle particle;
+	//パーティクルエミッタ
+	ParticleEmitter particleemitter;
+	SParticleEmitParameter param;
 	//コースパス
 	CCourcePath        courcePath;
 	CCourcePath::SCourceEdge  edge;
@@ -103,8 +118,7 @@ public:
 	//サウンド
 	CSoundEngine soundEngine;
 	CSoundSource soundSource;
-	CSoundSource* ss = NULL;     //サウンド
-
+	CSoundSource* gamess = NULL;     //サウンド
 
 private:
 	//視点
@@ -117,8 +131,10 @@ private:
 	bool Titleflag = false;
 	bool S_flag = false;
 	int soundtime = 0;
+	int GoalBetweenTitle = 0;
 };
 extern SceneManager*  scenemanager;
 extern ShadowMap      g_shadowmap;
-extern 	RenderTarget* renderTarget;
-extern 	Primitive*    quadPrimitive;
+extern RenderTarget*  renderTarget;
+extern Primitive*     quadPrimitive;
+extern Pad*           pad;

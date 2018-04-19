@@ -11,10 +11,9 @@ TitleTexture::~TitleTexture()
 	if (ss != NULL)
 	{
 		delete ss;
-
-		ss->Update();
 	}
-	//delete ss;
+	ss = NULL;
+
 }
 
 void TitleTexture::Init()
@@ -36,12 +35,15 @@ void TitleTexture::Init()
 		NULL,
 		&pTexture
 	);
-	ss = new CSoundSource;
+
 }
 
 void TitleTexture::Update()
 {
-
+	if (ss != NULL)
+	{
+		ss->Update();
+	}
 }
 
 void TitleTexture::Draw()
@@ -51,21 +53,16 @@ void TitleTexture::Draw()
 
 void TitleTexture::TitleSound()
 {
-	if (soundtime <= 0)
+	if (ss == NULL)
 	{
 		ss = new CSoundSource;
-		ss->Init("Assets/sound/se_maoudamashii_effect02.wav");
-		ss->SetVolume(0.1f);
-		ss->Play(false);
+		ss->Init("Assets/sound/opening-reggae.wav");
+		ss->SetVolume(0.5f);
+		ss->Play(true);
 	}
-	soundtime += 1;
 
-	if (soundtime >= 70)
-	{
-		soundtime = 0;
-	}
-	if (ss != NULL)
-	{
-		ss->Update();
-	}
+}
+void TitleTexture::TitleRelease()
+{
+	TitleTexture::~TitleTexture();
 }

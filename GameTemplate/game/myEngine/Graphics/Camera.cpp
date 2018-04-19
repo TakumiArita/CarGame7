@@ -101,9 +101,11 @@ D3DXMATRIX Camera::GetProjectionMatrix()
 //カメラの更新処理。
 void Camera::Update()
 {
+	//ビュー変換行列
 	D3DXMatrixLookAtLH(&viewMatrix, &vEyePt, &vLookatPt, &vUpVec);
 	D3DXMatrixPerspectiveFovLH(&projectionMatrix, D3DX_PI / 4, aspect, Near, Far);
 }
+
 //カメラの初期化。
 void Camera::Init()
 {
@@ -112,4 +114,18 @@ void Camera::Init()
 	vUpVec = D3DXVECTOR3(0.0f, 1.0f, 0.0f);      //上下左右判定する所。
 
 	Update();
+}
+
+D3DXMATRIX Camera::GetInvRotateMat()
+{
+	D3DXMATRIX Inv;
+	//D3DXMatrixIdentity(&Inv);
+	//D3DXMatrixLookAtLH(&Inv, &D3DXVECTOR3(0, 0, 0), &vLookatPt, &vUpVec);
+	//D3DXMatrixInverse(&Inv, NULL, &Inv);
+	D3DXMatrixInverse(&Inv, NULL, &viewMatrix);
+	Inv.m[3][0] = 0;
+	Inv.m[3][1] = 0;
+	Inv.m[3][2] = 0;
+
+	return Inv;
 }
