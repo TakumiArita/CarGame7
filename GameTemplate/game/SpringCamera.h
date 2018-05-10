@@ -69,7 +69,7 @@ public:
 	{
 		//return m_camera.GetTarget();
 		//return scenemanager->GetTargetPos();
-		return scenemanager->camera.GetLookatPt();
+		return scenemanager->GetCamera().GetLookatPt();
 	}
 	/*
 	* @brief 視点を取得。
@@ -78,7 +78,7 @@ public:
 	{
 		//エラー
 		//return m_camera.GetPosition();
-		return scenemanager->camera.GetEyePt();
+		return scenemanager->GetCamera().GetEyePt();
 	}
 	/*
 	* @brief 更新。

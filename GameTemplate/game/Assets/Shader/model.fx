@@ -35,10 +35,10 @@ sampler g_diffuseTextureSampler =
 sampler_state
 {
 	Texture = <g_diffuseTexture>;
-    MipFilter = NONE;
-    MinFilter = NONE;
-    MagFilter = NONE;
-    AddressU = Wrap;
+	MipFilter = NONE;
+	MinFilter = NONE;
+	MagFilter = NONE;
+	AddressU = Wrap;
 	AddressV = Wrap;
 };
 
@@ -59,10 +59,10 @@ sampler g_normalMapSampler =
 sampler_state
 {
 	Texture = <g_normalTexture>;
-    MipFilter = NONE;
-    MinFilter = NONE;
-    MagFilter = NONE;
-    AddressU = Wrap;
+	MipFilter = NONE;
+	MinFilter = NONE;
+	MagFilter = NONE;
+	AddressU = Wrap;
 	AddressV = Wrap;
 };
 
@@ -72,12 +72,12 @@ sampler_state
  */
 struct VS_INPUT
 {
-    float4  Pos             : POSITION;
-    float4  BlendWeights    : BLENDWEIGHT;
-    float4  BlendIndices    : BLENDINDICES;
-    float3  Normal          : NORMAL;
-    float3	Tangent			: TANGENT;		//接ベクトル
-    float3  Tex0            : TEXCOORD0;
+	float4  Pos             : POSITION;
+	float4  BlendWeights    : BLENDWEIGHT;
+	float4  BlendIndices    : BLENDINDICES;
+	float3  Normal          : NORMAL;
+	float3	Tangent			: TANGENT;		//接ベクトル
+	float3  Tex0            : TEXCOORD0;
 };
 
 /*!
@@ -86,9 +86,9 @@ struct VS_INPUT
 struct VS_OUTPUT
 {
 	float4  Pos     		: POSITION;
-    float3  Normal			: NORMAL;
-    float2  Tex0   			: TEXCOORD0;
-    float3	Tangent			: TEXCOORD1;	//接ベクトル
+	float3  Normal			: NORMAL;
+	float2  Tex0   			: TEXCOORD0;
+	float3	Tangent			: TEXCOORD1;	//接ベクトル
 	float4  lightViewPos    : TEXCOORD2;
 	float4  PosInProj       : TEXCOORD3;
 	float4 worldPos         : TEXCOORD4;
@@ -110,21 +110,21 @@ void CalcWorldPosAndNormalFromSkinMatrix( VS_INPUT In, out float3 Pos, out float
 	
 	//ブレンドレート。
 	float BlendWeightsArray[4] = (float[4])In.BlendWeights;
-    int   IndexArray[4]        = (int[4])IndexVector;
-    float LastWeight = 0.0f;
-    for (int iBone = 0; iBone < g_numBone-1; iBone++)
-    {
-        LastWeight = LastWeight + BlendWeightsArray[iBone];
-        
-        Pos += mul(In.Pos, g_mWorldMatrixArray[IndexArray[iBone]]) * BlendWeightsArray[iBone];
-        Normal += mul(In.Normal, g_mWorldMatrixArray[IndexArray[iBone]]) * BlendWeightsArray[iBone];
-        Tangent += mul(In.Tangent, g_mWorldMatrixArray[IndexArray[iBone]]) * BlendWeightsArray[iBone];
-    }
-    LastWeight = 1.0f - LastWeight; 
-    
+	int   IndexArray[4]        = (int[4])IndexVector;
+	float LastWeight = 0.0f;
+	for (int iBone = 0; iBone < g_numBone-1; iBone++)
+	{
+		LastWeight = LastWeight + BlendWeightsArray[iBone];
+		
+		Pos += mul(In.Pos, g_mWorldMatrixArray[IndexArray[iBone]]) * BlendWeightsArray[iBone];
+		Normal += mul(In.Normal, g_mWorldMatrixArray[IndexArray[iBone]]) * BlendWeightsArray[iBone];
+		Tangent += mul(In.Tangent, g_mWorldMatrixArray[IndexArray[iBone]]) * BlendWeightsArray[iBone];
+	}
+	LastWeight = 1.0f - LastWeight; 
+	
 	Pos += (mul(In.Pos, g_mWorldMatrixArray[IndexArray[g_numBone-1]]) * LastWeight);
-    Normal += (mul(In.Normal, g_mWorldMatrixArray[IndexArray[g_numBone-1]]) * LastWeight);
-    Tangent += (mul(In.Tangent, g_mWorldMatrixArray[IndexArray[g_numBone-1]]) * LastWeight);
+	Normal += (mul(In.Normal, g_mWorldMatrixArray[IndexArray[g_numBone-1]]) * LastWeight);
+	Tangent += (mul(In.Tangent, g_mWorldMatrixArray[IndexArray[g_numBone-1]]) * LastWeight);
 }
 /*!
  *@brief	ワールド座標とワールド法線を計算。
@@ -150,17 +150,17 @@ VS_OUTPUT VSMain( VS_INPUT In, uniform bool hasSkin )
 	float3 Pos, Normal, Tangent;
 	if(hasSkin){
 		//スキンあり。
-	    CalcWorldPosAndNormalFromSkinMatrix( In, Pos, Normal, Tangent );
+		CalcWorldPosAndNormalFromSkinMatrix( In, Pos, Normal, Tangent );
 	}else{
 		//スキンなし。
 		CalcWorldPosAndNormal( In, Pos, Normal, Tangent );
 	}
-    o.Pos = mul(float4(Pos.xyz, 1.0f), g_mViewProj);
+	o.Pos = mul(float4(Pos.xyz, 1.0f), g_mViewProj);
 	o.PosInProj = o.Pos;
 	o.worldPos  = float4(Pos.xyz, 1.0f);
-    o.Normal = normalize(Normal);
-    o.Tangent = normalize(Tangent);
-    o.Tex0 = In.Tex0;
+	o.Normal = normalize(Normal);
+	o.Tangent = normalize(Tangent);
+	o.Tex0 = In.Tex0;
 	if (shadowmapR == true)
 	{
 		o.lightViewPos = mul(float4(Pos.xyz, 1.0f), g_lightViewProj);
@@ -226,7 +226,7 @@ float4 PSMain( VS_OUTPUT In ) : COLOR
 			   + normal * localNormal.z;
 	}
 
-	for (float i = 0; i < 2; i++)
+	for (float i = 0; i < 4; i++)
 	{
 		//スペキュラライト用の処理。
 		float3 eyePostwo = normalize(eyePos - In.worldPos.xyz);
@@ -238,7 +238,7 @@ float4 PSMain( VS_OUTPUT In ) : COLOR
 		spec = pow(spec, 2.0f);
 		if (Pspec == true)
 		{
-			color.xyz += spec * g_light.diffuseLightColor[i].xyz *10.0f;
+			color.xyz += spec * g_light.diffuseLightColor[i].xyz *g_light.diffuseLightColor[i].w;
 		}
 	}
 		float4 lig = DiffuseLight(normal);
@@ -275,11 +275,11 @@ float4 PSShadowMain(VS_OUTPUT In) : COLOR
  */
 technique SkinModel
 {
-    pass p0
-    {
-        VertexShader = compile vs_3_0 VSMain(true);
-        PixelShader = compile ps_3_0 PSMain();
-    }
+	pass p0
+	{
+		VertexShader = compile vs_3_0 VSMain(true);
+		PixelShader = compile ps_3_0 PSMain();
+	}
 }
 /*!
  *@brief	スキンなしモデル用のテクニック。

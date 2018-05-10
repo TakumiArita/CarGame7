@@ -41,14 +41,17 @@ public:
 	}
 
 	void Create(
-		int w,
-		int h,
-		int mipLevel,
-		D3DFORMAT colorFormat,
-		D3DFORMAT depthStencilFormat,
-		D3DMULTISAMPLE_TYPE multiSampleType,
-		int multiSampleQuality)
+		int w, //レンダリングターゲットの横の解像度。
+		int h, //レンダリングターゲットの縦の解像度。
+		int mipLevel, //1でいい。
+		D3DFORMAT colorFormat, //DirectX3のテキストを読んで調べる。16ビットの浮動小数点バッファを使う。
+		D3DFORMAT depthStencilFormat, //16bitの深度バッファのフォーマットを指定する。
+		D3DMULTISAMPLE_TYPE multiSampleType, //D3DMULTISAMPLE_NONEでいい。
+		int multiSampleQuality //0でいい。
+	)
 	{
+		m_width = w;
+		m_height = h;
 		//デプスステンシルバッファの作成。
 		HRESULT hr = g_pd3dDevice->CreateDepthStencilSurface(
 			w,

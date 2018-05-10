@@ -35,7 +35,7 @@ public:
 private:
 	
 	D3DXVECTOR3 toCameraPos;
-	SceneManager       scenemanager;
+
 };
 
 extern Game* game;

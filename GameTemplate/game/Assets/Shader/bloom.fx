@@ -20,6 +20,7 @@ sampler_state
 
 struct VS_INPUT{
 	float4	pos : POSITION;
+	float2 uv : TEXCOORD0;
 };
 
 struct VS_OUTPUT{
@@ -34,16 +35,18 @@ VS_OUTPUT VSSamplingLuminance( VS_INPUT In )
 	Out.pos = In.pos;		//トランスフォーム済み頂点なのでそのまま
 	Out.tex = (In.pos * 0.5f) + 0.5f;
 	Out.tex.y = 1.0f - Out.tex.y;
+	Out.tex = In.uv;
 	return Out;
 }
-float4 PSSamplingLuminance( VS_OUTPUT In ) : COLOR
+float4 PSSamplingLuminance( VS_OUTPUT In ) : COLOR0
 {
 	float4 color = tex2D(g_SceneSampler, In.tex );
 	//輝度を計算する。tに輝度が入っている。
 	float t = dot( color.xyz, float3(0.2125f, 0.7154f, 0.0721f) );
 	//輝度が1.0以下ならピクセルキル
-	clip(t - 2.00f);
+	clip(t - 1.001f);
 	color.xyz *= (t - 1.0f);
+	color.w = 1.0f;
 	return color;
 }
 
@@ -79,14 +82,14 @@ VS_BlurOutput VSXBlur(VS_INPUT In)
 {
 	VS_BlurOutput Out;
 	Out.pos = In.pos;
-	float2 tex = (In.pos * 0.5f) + 0.5f;;
+	float2 tex = (In.pos * 0.5f) + 0.5f;
 	tex.y = 1.0f - tex.y;
 	tex += float2( 0.5/g_luminanceTexSize.x, 0.5/g_luminanceTexSize.y);
-	Out.tex0 = tex + float2( - 1.0f/g_luminanceTexSize.x, 0.0f );
-    Out.tex1 = tex + float2( - 3.0f/g_luminanceTexSize.x, 0.0f );
-    Out.tex2 = tex + float2( - 5.0f/g_luminanceTexSize.x, 0.0f );
-    Out.tex3 = tex + float2( - 7.0f/g_luminanceTexSize.x, 0.0f );
-    Out.tex4 = tex + float2( - 9.0f/g_luminanceTexSize.x, 0.0f );
+	Out.tex0 = tex + float2(-1.0f / g_luminanceTexSize.x, 0.0f);
+    Out.tex1 = tex + float2( -3.0f/g_luminanceTexSize.x, 0.0f );
+    Out.tex2 = tex + float2( -5.0f/g_luminanceTexSize.x, 0.0f );
+    Out.tex3 = tex + float2( -7.0f/g_luminanceTexSize.x, 0.0f );
+    Out.tex4 = tex + float2( -9.0f/g_luminanceTexSize.x, 0.0f );
     Out.tex5 = tex + float2( -11.0f/g_luminanceTexSize.x, 0.0f );
     Out.tex6 = tex + float2( -13.0f/g_luminanceTexSize.x, 0.0f );
     Out.tex7 = tex + float2( -15.0f/g_luminanceTexSize.x, 0.0f );
@@ -95,7 +98,7 @@ VS_BlurOutput VSXBlur(VS_INPUT In)
 /*!
  * @brief	Xブラーピクセルシェーダー。
  */
-float4 PSXBlur( VS_BlurOutput In ) : COLOR
+float4 PSXBlur( VS_BlurOutput In ) : COLOR0
 {
 	float4 Color;
 	Color  = g_weight[0] * (tex2D( g_blurSampler, In.tex0 )
@@ -114,6 +117,7 @@ float4 PSXBlur( VS_BlurOutput In ) : COLOR
 	                 + tex2D( g_blurSampler, In.tex1 + g_offset ));
 	Color += g_weight[7] * (tex2D( g_blurSampler, In.tex7 )
 	                 + tex2D( g_blurSampler, In.tex0 + g_offset ));
+	Color.w = 1.0f;
 	return Color;
 }
 /*!
@@ -125,12 +129,12 @@ VS_BlurOutput VSYBlur(VS_INPUT In)
 	Out.pos = In.pos;
 	float2 tex = (In.pos * 0.5f) + 0.5f;
 	tex.y = 1.0f - tex.y;
-	tex += float2( 0.5/g_luminanceTexSize.x, 0.5/g_luminanceTexSize.y);
-	Out.tex0 = tex + float2( 0.0f,- 1.0f/g_luminanceTexSize.y  );
-    Out.tex1 = tex + float2( 0.0f,- 3.0f/g_luminanceTexSize.y  );
-    Out.tex2 = tex + float2( 0.0f,- 5.0f/g_luminanceTexSize.y  );
-    Out.tex3 = tex + float2( 0.0f,- 7.0f/g_luminanceTexSize.y  );
-    Out.tex4 = tex + float2( 0.0f,- 9.0f/g_luminanceTexSize.y  );
+	tex += float2(0.5 / g_luminanceTexSize.x, 0.5 / g_luminanceTexSize.y);
+	Out.tex0 = tex + float2(0.0f, -1.0f / g_luminanceTexSize.y);
+    Out.tex1 = tex + float2( 0.0f,-3.0f/g_luminanceTexSize.y  );
+    Out.tex2 = tex + float2( 0.0f,-5.0f/g_luminanceTexSize.y  );
+    Out.tex3 = tex + float2( 0.0f,-7.0f/g_luminanceTexSize.y  );
+    Out.tex4 = tex + float2( 0.0f,-9.0f/g_luminanceTexSize.y  );
     Out.tex5 = tex + float2( 0.0f,-11.0f/g_luminanceTexSize.y  );
     Out.tex6 = tex + float2( 0.0f,-13.0f/g_luminanceTexSize.y  );
     Out.tex7 = tex + float2( 0.0f,-15.0f/g_luminanceTexSize.y  );
@@ -139,7 +143,7 @@ VS_BlurOutput VSYBlur(VS_INPUT In)
 /*!
  * @brief	Yブラーピクセルシェーダー。
  */
-float4 PSYBlur( VS_BlurOutput In ) : COLOR
+float4 PSYBlur( VS_BlurOutput In ) : COLOR0
 {
 	float4 Color;
 	Color  = g_weight[0] * (tex2D( g_blurSampler, In.tex0 )
@@ -157,7 +161,8 @@ float4 PSYBlur( VS_BlurOutput In ) : COLOR
 	Color += g_weight[6] * (tex2D( g_blurSampler, In.tex6 )
 	                 + tex2D( g_blurSampler, In.tex1 + g_offset ));
 	Color += g_weight[7] * (tex2D( g_blurSampler, In.tex7 )
-	                 + tex2D( g_blurSampler, In.tex0 + g_offset ));
+					 + tex2D( g_blurSampler, In.tex0 + g_offset ));
+	Color.w = 1.0f;
 	return Color;
 }
 /*!
@@ -172,7 +177,7 @@ VS_OUTPUT VSFinal( VS_INPUT In )
 	Out.tex += g_offset;
 	return Out;
 }
-float4 PSFinal( VS_OUTPUT In ) : COLOR
+float4 PSFinal( VS_OUTPUT In ) : COLOR0
 {
 	float2 uv = In.tex;
 	return clamp(tex2D(g_blurSampler, uv ), 0.0f, 1.0f);

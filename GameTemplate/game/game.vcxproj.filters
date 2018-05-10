@@ -61,9 +61,6 @@
     <Filter Include="ソース ファイル\CCourcePath">
       <UniqueIdentifier>{a862c771-2213-4866-9a0b-ee1bb4cad775}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\bloom">
-      <UniqueIdentifier>{e32d7f11-5e53-4c9f-8e74-7783af1aa4f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\GoalTexture">
       <UniqueIdentifier>{f0bd7b3a-ec18-4e5f-817f-c5d78726f37f}</UniqueIdentifier>
     </Filter>
@@ -108,6 +105,9 @@
     </Filter>
     <Filter Include="ソース ファイル\Item">
       <UniqueIdentifier>{a0951e95-e7d4-4576-a39d-7737d3810d51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Bloom">
+      <UniqueIdentifier>{e32d7f11-5e53-4c9f-8e74-7783af1aa4f7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +190,7 @@
       <Filter>ソース ファイル\CCourcePath</Filter>
     </ClCompile>
     <ClCompile Include="Bloom.cpp">
-      <Filter>ソース ファイル\bloom</Filter>
+      <Filter>ソース ファイル\Bloom</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル\CSprite</Filter>
@@ -238,6 +238,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -333,7 +336,7 @@
       <Filter>ソース ファイル\CCourcePath</Filter>
     </ClInclude>
     <ClInclude Include="Bloom.h">
-      <Filter>ソース ファイル\bloom</Filter>
+      <Filter>ソース ファイル\Bloom</Filter>
     </ClInclude>
     <ClInclude Include="courcePath.h">
       <Filter>ソース ファイル\CCourcePath</Filter>
@@ -384,6 +387,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

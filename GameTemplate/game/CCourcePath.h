@@ -13,8 +13,8 @@ public:
 		D3DXVECTOR3 endPos;			//コースパスのエッジの終点。
 		D3DXVECTOR3 startToEnd;		//始点から終点に向かうベクトル。
 		D3DXVECTOR3 direction;		//エッジの向き。
-		
 	};
+
 	CCourcePath();
 	~CCourcePath();
 	void Init(SCourceEdge& courcePath);
@@ -30,17 +30,16 @@ public:
 	}
 
 private:
-	SkinModel       model;
 
 	//コースパスのリスト
 	std::vector<SCourceEdge> courceEdigeList;	//コースパスのエッジのリスト。
 
-	D3DXVECTOR3       m_startPos;         //コースパスのエッジの始点。
-	D3DXVECTOR3       m_endPos;           //コースパスのエッジの終点。
-	D3DXVECTOR3       m_startToEnd;		  //始点から終点に向かうベクトル。
-	D3DXVECTOR3       m_direction;		  //エッジの向き。
+	D3DXVECTOR3       m_startPos;               //コースパスのエッジの始点。
+	D3DXVECTOR3       m_endPos;                 //コースパスのエッジの終点。
+	D3DXVECTOR3       m_startToEnd;		        //始点から終点に向かうベクトル。
+	D3DXVECTOR3       m_direction;		        //エッジの向き。
 
-	int numObject;	                      //配置してるオブジェクトの数を計算する
+	int numObject;	                            //配置してるオブジェクトの数を計算する
 
 };
 

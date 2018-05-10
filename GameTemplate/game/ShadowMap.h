@@ -2,11 +2,7 @@
 #include "RenderTarget.h"
 class ShadowMap
 {
-	RenderTarget renderTarget;
-	D3DXMATRIX  lightViewMatrix;
-	D3DXMATRIX  lightProjectionMatrix;
-	D3DXVECTOR3 viewPosition;
-	D3DXVECTOR3 viewTarget;
+
 public:
 	ShadowMap();
 	~ShadowMap();
@@ -48,5 +44,11 @@ public:
 
 	void Update();
 	void Draw();
+private:
+	RenderTarget renderTarget;
+	D3DXMATRIX  lightViewMatrix;
+	D3DXMATRIX  lightProjectionMatrix;
+	D3DXVECTOR3 viewPosition;
+	D3DXVECTOR3 viewTarget;
 };
 

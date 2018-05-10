@@ -161,6 +161,7 @@
     <ClCompile Include="CVertexBuffer.cpp" />
     <ClCompile Include="CWaveFile.cpp" />
     <ClCompile Include="CWaveFileBank.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GameTimeTexture.cpp" />
     <ClCompile Include="GoalTexture.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="CVertexBuffer.h" />
     <ClInclude Include="CWaveFile.h" />
     <ClInclude Include="CWaveFileBank.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameTimeTexture.h" />
     <ClInclude Include="GoalTexture.h" />

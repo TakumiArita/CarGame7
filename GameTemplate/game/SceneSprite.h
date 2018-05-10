@@ -13,9 +13,7 @@ public:
 	void GoalDraw();
 	void StartDraw();
 
+private:
 	LPD3DXSPRITE ppSprite;
-	//GoalTexture  goaltexture;
-	//TitleTexture titletexture;
-	//StartTexture starttexture;
 };
 

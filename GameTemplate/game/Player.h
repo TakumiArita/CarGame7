@@ -51,10 +51,7 @@ public:
 	{
 		return CirclingTimes;
 	}
-	int GetGameTimer()
-	{
-		return gameTime0;
-	}
+
 	void SetSoundflag(bool flg)
 	{
 		Soundflag = flg;
@@ -89,8 +86,6 @@ private:
 	D3DXVECTOR3			moveDir = {-1.0f, 0.0f, 0.0f};	//車の進行方向。
 	//止まっているタイマー
 	int stoptimer;
-	//ゲームのタイマー
-	float gameTime0;
 	//加速タイマー
 	int accelerationtimer;
 	//失敗したタイマー

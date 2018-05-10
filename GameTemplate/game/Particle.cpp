@@ -125,10 +125,10 @@ void Particle::Update()
 	D3DXMatrixTranslation(&mTrans, position.x, position.y, position.z);
 	if (isBillboard) {
 		//ビルボード処理を行う。
-		const D3DXMATRIX mCameraRot = scenemanager->camera.GetInvRotateMat();
+		const D3DXMATRIX mCameraRot = scenemanager->GetCamera().GetInvRotateMat();
 		D3DXQUATERNION qRot;
 		//qRot.SetRotation(D3DXVECTOR3(mCameraRot.m[2][0], mCameraRot.m[2][1], mCameraRot.m[2][2]), rotateZ);
-		D3DXQuaternionRotationAxis(&qRot,&scenemanager->player.GetPosition(), D3DXToRadian(scenemanager->player.GetLookCamera()));
+		D3DXQuaternionRotationAxis(&qRot,&scenemanager->GetPlayer().GetPosition(), D3DXToRadian(scenemanager->GetPlayer().GetLookCamera()));
 		D3DXMATRIX rot;
 		//rot.MakeRotationFromQuaternion(qRot);
 		D3DXMatrixRotationQuaternion(&rot,&qRot);

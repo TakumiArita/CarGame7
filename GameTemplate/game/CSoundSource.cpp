@@ -21,7 +21,7 @@ void CSoundSource::Init(char* filePath)
 	unsigned int dummy;
 	m_waveFile.Read(m_buffer.get(), m_waveFile.GetSize(), &dummy);
 	//サウンドボイスソースを作成。
-	m_sourceVoice = scenemanager->soundEngine.CreateXAudio2SourceVoice(&m_waveFile);
+	m_sourceVoice = scenemanager->GetCSoundEngine().CreateXAudio2SourceVoice(&m_waveFile);
 }
 void CSoundSource::InitStreaming(char* filePath, unsigned int ringBufferSize, unsigned int bufferSize)
 {
@@ -33,7 +33,7 @@ void CSoundSource::InitStreaming(char* filePath, unsigned int ringBufferSize, un
 	m_readStartPos = 0;
 	m_currentBufferingSize = 0;
 	//サウンドボイスソースを作成。
-	m_sourceVoice = scenemanager->soundEngine.CreateXAudio2SourceVoice(&m_waveFile);
+	m_sourceVoice = scenemanager->GetCSoundEngine().CreateXAudio2SourceVoice(&m_waveFile);
 	m_sourceVoice->Start(0, 0);
 }
 void CSoundSource::Release()

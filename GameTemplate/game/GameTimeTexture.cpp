@@ -119,7 +119,7 @@ void GameTimeTexture::Init()
 void GameTimeTexture::Update()
 {
 	//スタートカウントが0になったら
-	if (scenemanager->startcounttexture.GetStartCountTimer() == 0)
+	if (scenemanager->GetStartCountTexture().GetStartCountTimer() == 0)
 	{
 		if (firstTitleFlag == false)
 		{
@@ -149,7 +149,7 @@ void GameTimeTexture::Update()
 		gametime[0] = gametime[0] % 10;
 
 		//ゴールするまで。
-		if (scenemanager->player.GetCirclingTimes() <= 2)
+		if (scenemanager->GetPlayer().GetCirclingTimes() <= 2)
 		{
 			gametimer++;
 		}

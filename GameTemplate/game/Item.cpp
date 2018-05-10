@@ -14,28 +14,28 @@ Item::~Item()
 void Item::Init()
 {
 	//ライトの初期化。
-	D3DXVECTOR4 v = D3DXVECTOR4(0.707f, -100.0f, -0.707f, 1.0f);
-	D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);   //正規化して大きさ１のベクトルに変換して、向きだけのベクトルにする。													 //w要素を含むと4要素のベクトルで正規化してしまうので、D3DXVECTOR3にキャスト。
-	light.SetDiffuseLightDirection(0, v);
+	//D3DXVECTOR4 v = D3DXVECTOR4(0.707f, -100.0f, -0.707f, 1.0f);
+	//D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);   //正規化して大きさ１のベクトルに変換して、向きだけのベクトルにする。													 //w要素を含むと4要素のベクトルで正規化してしまうので、D3DXVECTOR3にキャスト。
+	//light.SetDiffuseLightDirection(0, v);
 
-	v = { -0.707f, 100.707f, -0.707f, 1.0f };
-	D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);
-	light.SetDiffuseLightDirection(1, v);
+	//v = { -0.707f, 100.707f, -0.707f, 1.0f };
+	//D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);
+	//light.SetDiffuseLightDirection(1, v);
 
-	v = { -0.707f, -100.0f, -0.707f, 1.0f };
-	D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);
-	light.SetDiffuseLightDirection(2, v);
+	//v = { -0.707f, -100.0f, -0.707f, 1.0f };
+	//D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);
+	//light.SetDiffuseLightDirection(2, v);
 
-	v = { 0.707f, -100.707f, -0.707f, 1.0f };
-	D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);
-	light.SetDiffuseLightDirection(3, v);
+	//v = { 0.707f, -100.707f, -0.707f, 1.0f };
+	//D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);
+	//light.SetDiffuseLightDirection(3, v);
 
-	light.SetDiffuseLightColor(0, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
-	light.SetDiffuseLightColor(1, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
-	light.SetDiffuseLightColor(2, D3DXVECTOR4(0.6f, 0.6f, 0.6f, 1.0f));
-	light.SetDiffuseLightColor(3, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
+	//light.SetDiffuseLightColor(0, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
+	//light.SetDiffuseLightColor(1, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
+	//light.SetDiffuseLightColor(2, D3DXVECTOR4(0.6f, 0.6f, 0.6f, 1.0f));
+	//light.SetDiffuseLightColor(3, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
 
-	light.SetAmbientLight(D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f));
+	light.SetAmbientLight(D3DXVECTOR4(1.0f, 1.0f, 1.0f, 0.0f));
 
 	//モデルのロード。
 	modelData.LoadModelData("Assets/modelData/potion2.X", &animation);
@@ -49,8 +49,8 @@ void Item::Init()
 	//重力
 	characterController.SetGravity(-50.0f);
 
-	playerToItem.x = scenemanager->player.GetPosition().x - GetPosition().x;
-	playerToItem.z = scenemanager->player.GetPosition().z - GetPosition().z;
+	playerToItem.x = scenemanager->GetPlayer().GetPosition().x - GetPosition().x;
+	playerToItem.z = scenemanager->GetPlayer().GetPosition().z - GetPosition().z;
 	//playerToItem = GetPosition() - scenemanager->player.GetPosition();
 
 
@@ -62,8 +62,8 @@ void Item::Update()
 	//キャラクタが動く速度を設定。
 	characterController.SetMoveSpeed(moveSpeed);
 	
-	playerToItem.x = scenemanager->player.GetPosition().x - GetPosition().x;
-	playerToItem.z = scenemanager->player.GetPosition().z - GetPosition().z;
+	playerToItem.x = scenemanager->GetPlayer().GetPosition().x - GetPosition().x;
+	playerToItem.z = scenemanager->GetPlayer().GetPosition().z - GetPosition().z;
 	//playerToItem = GetPosition() - scenemanager->player.GetPosition();
 	if (itemEffectTime > 0)
 	{

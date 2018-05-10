@@ -63,5 +63,5 @@ void MapChip::Update()
 
 void MapChip::Draw()
 {
-	model.Draw(&scenemanager->GetCamera()->GetViewMatrix(), &scenemanager->GetCamera()->GetProjectionMatrix(),false,true,false);
+	model.Draw(&scenemanager->GetCamera().GetViewMatrix(), &scenemanager->GetCamera().GetProjectionMatrix(),false,true,false);
 }

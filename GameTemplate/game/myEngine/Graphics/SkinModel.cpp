@@ -87,11 +87,11 @@ namespace {
 			*/
 			//シャドウマップレシーバー転送
 			pEffect->SetBool("shadowmapR", shadowmapR);
-			pEffect->SetTexture("g_shadowMapTexture", g_shadowmap.GetTexture());
-			pEffect->SetMatrix("g_lightViewMatrix", &g_shadowmap.GetLightViewMatrix());
-			pEffect->SetMatrix("g_lightProjMatrix", &g_shadowmap.GetLightProjectionMatrix());
+			pEffect->SetTexture("g_shadowMapTexture", g_shadowmap->GetTexture());
+			pEffect->SetMatrix("g_lightViewMatrix", &g_shadowmap->GetLightViewMatrix());
+			pEffect->SetMatrix("g_lightProjMatrix", &g_shadowmap->GetLightProjectionMatrix());
 			D3DXMATRIX lightViewProjmatrix;
-			D3DXMatrixMultiply(&lightViewProjmatrix, &g_shadowmap.GetLightViewMatrix(), &g_shadowmap.GetLightProjectionMatrix());
+			D3DXMatrixMultiply(&lightViewProjmatrix, &g_shadowmap->GetLightViewMatrix(), &g_shadowmap->GetLightProjectionMatrix());
 			pEffect->SetMatrix("g_lightViewProj", &lightViewProjmatrix);
 
 			/*
@@ -100,7 +100,7 @@ namespace {
 			//スペキュラライト転送
 			//pEffect->SetValue("eyePos", scenemanager->GetEyeR(), sizeof(D3DXVECTOR3));
 			pEffect->SetValue("eyePos", scenemanager->GetEyeR(), sizeof(D3DXVECTOR3));
-			pEffect->SetVector("PSetDiffuseLight",&scenemanager->player.GetLight().GetDiffuseLightDirection()[0]);
+			pEffect->SetVector("PSetDiffuseLight",&scenemanager->GetPlayer().GetLight().GetDiffuseLightDirection()[0]);
 			pEffect->SetBool("Pspec", Pspec);
 		
 		}

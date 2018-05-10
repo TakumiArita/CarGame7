@@ -23,12 +23,12 @@ CSoundEngine::~CSoundEngine()
 void CSoundEngine::Init()
 {
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
+	HRESULT hr;
 	unsigned int flags = 0;
 #ifdef _DEBUG
 	flags |= XAUDIO2_DEBUG_ENGINE;
 #endif
 	//XAUDIO2を初期化。
-	HRESULT hr;
 	if (FAILED(hr = XAudio2Create(&m_xAudio2, flags)))
 	{
 		//TK_ASSERT(false, "Faild XAudio2Create");
@@ -37,7 +37,9 @@ void CSoundEngine::Init()
 	if (FAILED(hr = m_xAudio2->CreateMasteringVoice(&m_masteringVoice)))
 	{
 		m_xAudio2->Release();
+		
 		CoUninitialize();
+
 		//TK_ASSERT(false, "Faild CreateMasteringVoice");
 	}
 }
@@ -54,7 +56,6 @@ void CSoundEngine::Release()
 	//	m_masteringVoice->DestroyVoice();
 	//	m_masteringVoice = nullptr;
 	//}
-	CoUninitialize();
 }
 /*!
 * @brief	XAudio2のソースボイスを作成。

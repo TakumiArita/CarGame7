@@ -48,7 +48,7 @@ LRESULT WINAPI MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			g_pD3D->Release();
 		Terminate();
 		PostQuitMessage(0);
-		return 0;
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
@@ -72,10 +72,11 @@ INT WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR, INT)
 	// ウィンドウを作成。
 	HWND hWnd = CreateWindow("Game", "Game",
 		WS_OVERLAPPEDWINDOW,
-		//0,0,
-		500, 150,
-		FRAME_BUFFER_WIDTH + 100,
-		FRAME_BUFFER_HEIGHT + 100,
+		//0, 0,
+		-10, 0,
+		//500, 150,
+		FRAME_BUFFER_WIDTH,
+		FRAME_BUFFER_HEIGHT,
 		NULL, NULL, wc.hInstance, NULL);
 	// Direct3Dを初期化。
 	InitD3D(hWnd);

@@ -58,11 +58,9 @@ void ShadowMap::Draw()
 	g_pd3dDevice->GetDepthStencilSurface(&depthBufferBackup);
 	g_pd3dDevice->SetRenderTarget(0, renderTarget.GetRenderTarget());
 	g_pd3dDevice->SetDepthStencilSurface(renderTarget.GetDepthStencilBuffer());
-	g_pd3dDevice->BeginScene();
 	//書き込み先を変更したのでクリア。
 	g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
-	scenemanager->player.Draw(lightViewMatrix, lightProjectionMatrix, true, false,false);
-	g_pd3dDevice->EndScene();
+	scenemanager->GetPlayer().Draw(lightViewMatrix, lightProjectionMatrix, true, false,false);
 	g_pd3dDevice->SetRenderTarget(0, renderTargetBackup);		//戻す。
 	g_pd3dDevice->SetDepthStencilSurface(depthBufferBackup);	//戻す。
 }

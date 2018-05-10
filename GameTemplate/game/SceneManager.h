@@ -18,6 +18,7 @@
 #include "RoadAroundFrequencyTexture.h"
 #include "Sprite.h"
 #include "SkyBox.h"
+#include "Bloom.h"
 #include "CSoundSource.h"
 #include "CSoundEngine.h"
 #include "myEngine\HID\Pad.h"
@@ -40,13 +41,21 @@ public:
 	void GameSound();
 	//ゲーム中の音のリリース
 	void GameSoundRelease();
+
+
+
+public:
 	/*
 	*@brief	カメラを取得。
 	 return カメラの変数
 	*/
-	Camera* GetCamera()
+	//Camera* GetCamera()
+	//{
+	//	return &camera;
+	//}
+	Camera& GetCamera()
 	{
-		return &camera;
+		return camera;
 	}
 	/*
 	*@brief カメラの注視点を取得。
@@ -72,55 +81,176 @@ public:
 	//	return toCameraPos;
 	//}
 
-	//カメラ
-	Camera            camera;
-	//プレイヤー
-	Player            player;
-	//アイテム
-	Item              item;
-	//マップ
-	Map               map;
-	//背景
-	SkyBox            skybox;
-	//タイトル表示。
-	TitleTexture titletexture;
-	//スタートNoの表示。
-	StartCountTexture startcounttexture;
-	//ゴール表示。
-	GoalTexture  goaltexture;
-	//スタートの表示。
-	StartTexture starttexture;
-	//周回回数の表示。
-	RoadAroundFrequencyTexture roadaroundfrequencytexture;
-	//タイトル、ゴールなどのスプライト。
-	SceneSprite  scenesprite;
+	//プレイヤーのゲッター。
+	Player& GetPlayer()
+	{
+		return player;
+	}
+	Item& GetItem()
+	{
+		return item;
+	}
+	//Map& GetMap()
+	//{
+	//	return map;
+	//}
 
-	//時間表示
-	Sprite             sprite;
-	GameTimeTexture    gametimetexture;
-	//シャドウマップ
-	ShadowMap          shadowmap;
-	//レンダーターゲット
-	RenderTarget       renderTarget;
-	//メインレンダーターゲット
-	MainRenderTarget mainRenderTarget;
-	//プリミティブ
-	Primitive quadPrimitive;
-	//パーティクル
-	Particle particle;
-	//パーティクルエミッタ
-	ParticleEmitter particleemitter;
-	SParticleEmitParameter param;
-	//コースパス
-	CCourcePath        courcePath;
-	CCourcePath::SCourceEdge  edge;
+	//SkyBox& GetSkyBox()
+	//{
+	//	return skybox;
+	//}
 
-	//サウンド
-	CSoundEngine soundEngine;
-	CSoundSource soundSource;
-	CSoundSource* gamess = NULL;     //サウンド
+
+	//タイトル表示のゲッター。
+	TitleTexture& GetTitleTexture()
+	{
+		return titletexture;
+	}
+	//スタートのカウントダウンの表示のゲッター。
+	StartCountTexture& GetStartCountTexture()
+	{
+		return startcounttexture;
+	}
+	//ゴールの表示のゲッター。
+	GoalTexture& GetGoalTexture()
+	{
+		return goaltexture;
+	}
+	//スタートの表示のゲッター。
+	StartTexture GetStartTexture()
+	{
+		return starttexture;
+	}
+	//周回回数の表示のゲッター。
+	RoadAroundFrequencyTexture& GetRoadAroundFrequencyTexture()
+	{
+		return roadaroundfrequencytexture;
+	}
+	//時間の表示のゲッター。
+	GameTimeTexture& GetGameTimeTexture()
+	{
+		return gametimetexture;
+	}
+	//シャドウマップのゲッター。
+	ShadowMap& GetShadowMap()
+	{
+		return shadowmap;
+	}
+	//レンダーターゲットのゲッター。
+	RenderTarget& GetRenderTarget()
+	{
+		return renderTarget;
+	}
+	//メインレンダーターゲットのゲッター。
+	//MainRenderTarget& GetMainRenderTarget()
+	//{
+	//	return mainRenderTarget;
+	//}
+	////プリミティブのゲッター。
+	//Primitive& GetPrimitive()
+	//{
+	//	return quadPrimitive
+	//}
+	////パーティクルのゲッター。
+	//Particle& GetParticle()
+	//{
+	//	return particle;
+	//}
+
+	////パーティクルエミッタのゲッター。
+	//ParticleEmitter& GetParticleEmitter()
+	//{
+	//	return particleemitter;
+	//}
+	////パーティクルエミッタのパラメータのゲッター。
+
+	//SParticleEmitParameter& GetSParticleEmitParameter()
+	//{
+	//	return param;
+	//}
+	//コースパスのゲッター。
+	CCourcePath& GetCCourcePath()
+	{
+		return courcePath;
+	}
+	////コースパスのエッジのゲッター。
+	//CCourcePath::SCourceEdge& GetEdge()
+	//{
+	//	return edge;
+	//}
+
+	//ブルームのゲッター。
+	Bloom& GetBloom()
+	{
+		return bloom;
+	}
+
+	//サウンドのエンジン
+	CSoundEngine& GetCSoundEngine()
+	{
+		return soundEngine;
+	}
+
+	//サウンドのソースのポインタ。
+	CSoundSource* GetCSoundSourcePointer()
+	{
+		return titleBgm;
+	}
 
 private:
+	/*インスタンス*/
+	Player                     player;	        			   //プレイヤー
+
+	Item                       item;                           //アイテム
+
+	Map                        map;							   //マップ
+	
+	SkyBox                     skybox;						   //背景
+
+	TitleTexture               titletexture;	               //タイトル表示。
+	
+	StartCountTexture          startcounttexture;              //スタートNoの表示。
+
+	GoalTexture                goaltexture;                    //ゴール表示。
+												
+	StartTexture               starttexture;                   //スタートの表示。
+												 
+	RoadAroundFrequencyTexture roadaroundfrequencytexture;     //周回回数の表示。
+
+	GameTimeTexture            gametimetexture;                //時間の表示。
+
+
+	SceneSprite                scenesprite;		  			   //シーン専用のスプライト。
+	Sprite                     sprite;                         //シーン以外のスプライト。
+
+	Camera                     camera;						   //カメラ
+	
+	ShadowMap                  shadowmap;					   //シャドウマップ
+	
+	RenderTarget               renderTarget;				   //レンダーターゲット
+
+	MainRenderTarget           mainRenderTarget;			   //メインレンダーターゲット
+	
+	Primitive                  quadPrimitive;				   //プリミティブ
+	
+	Particle                   particle;     				   //パーティクル
+
+	ParticleEmitter            particleemitter;				   //パーティクルエミッタ
+	
+	SParticleEmitParameter     param;                          //パーティクルエミッタのパラメータのゲッター。
+															   
+	CCourcePath                courcePath;					   //コースパス
+	
+	CCourcePath::SCourceEdge   edge;                           //コースパスのエッジ。
+
+	Bloom                      bloom;                          //ブルーム。
+	
+
+
+	CSoundEngine               soundEngine;                    //サウンドのエンジン。
+	CSoundSource*              titleBgm = NULL;                  //サウンドのソースのポインタ。
+
+
 	//視点
 	D3DXVECTOR3 toCameraPos;
 	//カメラの注視点を中心にする。
@@ -132,9 +262,13 @@ private:
 	bool S_flag = false;
 	int soundtime = 0;
 	int GoalBetweenTitle = 0;
+
+	//ブルーム用のスプライト。
+	LPD3DXSPRITE bloomSprite;
+
 };
 extern SceneManager*  scenemanager;
-extern ShadowMap      g_shadowmap;
-extern RenderTarget*  renderTarget;
+extern ShadowMap*     g_shadowmap;
+//extern RenderTarget*  renderTarget;
 extern Primitive*     quadPrimitive;
 extern Pad*           pad;

@@ -7,11 +7,11 @@ public:
 	~MainRenderTarget();
 	RenderTarget* mainRendertarget;
 
-	void InitMainRenderTarget();
-	void InitQuadPrimitive();
-	void CopyMainRTToCurrentRT();
-	void LoadShaders();
-	void GetTerminate();
+	//void InitMainRenderTarget();
+	//void InitQuadPrimitive();
+	//void CopyMainRTToCurrentRT();
+	//void LoadShaders();
+	//void GetTerminate();
 
 };
 

@@ -12,10 +12,12 @@ public:
 	void Draw();
 	void SaveGameTimeDraw();
 
-	LPD3DXSPRITE ppSprite;
+	LPD3DXSPRITE GetppSprite()
+	{
+		return ppSprite;
+	}
 
-	//GameTimeTexture gametimetexture;
-	//StartCountTexture    startcounttexture;
-	//RoadAroundFrequencyTexture roadaroundfrequencytexture;
+private:
+	LPD3DXSPRITE ppSprite;
 };
 

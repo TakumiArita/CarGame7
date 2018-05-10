@@ -21,8 +21,8 @@ void StartCountTexture::Init()
 		D3DXCreateTextureFromFileEx(
 			g_pd3dDevice,
 			timetexture[i],
-			CFRAME_BUFFER_WIDTH + 100,
-			CFRAME_BUFFER_HEIGHT + 100,
+			250,
+			250,
 			0,
 			0,
 			D3DFMT_UNKNOWN,

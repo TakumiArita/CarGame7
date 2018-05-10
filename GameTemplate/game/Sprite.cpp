@@ -16,9 +16,9 @@ void Sprite::Init()
 		g_pd3dDevice,
 		&ppSprite
 	);
-	scenemanager->gametimetexture.Init();
-	scenemanager->startcounttexture.Init();
-	scenemanager->roadaroundfrequencytexture.Init();
+	scenemanager->GetGameTimeTexture().Init();
+	scenemanager->GetStartCountTexture().Init();
+	scenemanager->GetRoadAroundFrequencyTexture().Init();
 }
 
 void Sprite::Draw()
@@ -26,12 +26,12 @@ void Sprite::Draw()
 	ppSprite->Begin(D3DXSPRITE_ALPHABLEND);
 
 	//スタートのカウントのテクスチャを表示させる。
-	if (scenemanager->startcounttexture.GetStartCountTimer() > 0)
+	if (scenemanager->GetStartCountTexture().GetStartCountTimer() > 0)
 	{
 		ppSprite->Draw(
-			scenemanager->startcounttexture.pTexture[scenemanager->startcounttexture.starttime],
+			scenemanager->GetStartCountTexture().SetpTexture(scenemanager->GetStartCountTexture().GetStarttime()),
 			NULL,
-			&(D3DXVECTOR3(-300.0f, -30.0f, 0.0f)),
+			&(D3DXVECTOR3(-575.0f, -30.0f, 0.0f)),
 			&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 			(D3DCOLOR_ARGB(255, 255, 255, 255))
 		);
@@ -41,25 +41,25 @@ void Sprite::Draw()
 	/*      1 / 2     */
 	/*      1      */
 	ppSprite->Draw(
-		scenemanager->roadaroundfrequencytexture.pTexture[scenemanager->roadaroundfrequencytexture.GetAroundTexture()],
+		scenemanager->GetRoadAroundFrequencyTexture().SetpTexture(scenemanager->GetRoadAroundFrequencyTexture().GetAroundTexture()),
 		NULL,
-		&(D3DXVECTOR3(-660.0f, -0.0f, 0.0f)),
+		&(D3DXVECTOR3(-660.0f * 1.95f, -0.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 		(D3DCOLOR_ARGB(255, 255, 255, 255))
 	);
 	/*      /       */
 	ppSprite->Draw(
-		scenemanager->roadaroundfrequencytexture.pTexture_Around,
+		scenemanager->GetRoadAroundFrequencyTexture().GetpTexture_Around(),
 		NULL,
-		&(D3DXVECTOR3(-670.0f, -25.0f, 0.0f)),
+		&(D3DXVECTOR3(-670.0f * 1.95f, -25.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 		(D3DCOLOR_ARGB(255, 255, 255, 255))
 	);
 	/*      2      */
 	ppSprite->Draw(
-		scenemanager->roadaroundfrequencytexture.pTexture_No3,
+		scenemanager->GetRoadAroundFrequencyTexture().GetpTexture_No3(),
 		NULL,
-		&(D3DXVECTOR3(-680.0f, -50.0f, 0.0f)),
+		&(D3DXVECTOR3(-680.0f * 1.95f, -50.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 		(D3DCOLOR_ARGB(255, 255, 255, 255))
 	);
@@ -69,7 +69,7 @@ void Sprite::Draw()
 	for (int i = 1; i < 3; i++)
 	{
 		ppSprite->Draw(
-			scenemanager->gametimetexture.pTexture_dot,
+			scenemanager->GetGameTimeTexture().GetpTexture_dot(),
 			NULL,
 			&(D3DXVECTOR3(-157.0f, (float)(i) * -13.0f, 0.0f)),
 			&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -78,7 +78,7 @@ void Sprite::Draw()
 	}
 	//ドットを表示させる。
 	ppSprite->Draw(
-		scenemanager->gametimetexture.pTexture_dot,
+		scenemanager->GetGameTimeTexture().GetpTexture_dot(),
 		NULL,
 		&(D3DXVECTOR3(-237.0f, -30.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -88,7 +88,7 @@ void Sprite::Draw()
 	for (int i = 0; i < 4; i++)
 	{
 		ppSprite->Draw(
-			scenemanager->gametimetexture.pTexture[scenemanager->gametimetexture.gametime[i]],
+			scenemanager->GetGameTimeTexture().SetpTexture(scenemanager->GetGameTimeTexture().SetGameTime(i)),
 			NULL,
 			&(D3DXVECTOR3((float)(i + 3) * -40.0f, 0.0f, 0.0f)),
 			&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -97,16 +97,16 @@ void Sprite::Draw()
 	}
 	//タイムの表示。
 	ppSprite->Draw(
-		scenemanager->gametimetexture.pTexture_time,
+		scenemanager->GetGameTimeTexture().GetpTexture_time(),
 		NULL,
 		&(D3DXVECTOR3(0.0f, 5.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 		(D3DCOLOR_ARGB(255, 255, 255, 255))
 	);
 
-	scenemanager->gametimetexture.Update();
-	scenemanager->startcounttexture.Update();
-	scenemanager->roadaroundfrequencytexture.Update();
+	scenemanager->GetGameTimeTexture().Update();
+	scenemanager->GetStartCountTexture().Update();
+	scenemanager->GetRoadAroundFrequencyTexture().Update();
 	ppSprite->End();
 }
 
@@ -117,7 +117,7 @@ void Sprite::SaveGameTimeDraw()
 
 	//「最速時間」を表示させる。
 	ppSprite->Draw(
-		scenemanager->gametimetexture.pTexture_newRecord,
+		scenemanager->GetGameTimeTexture().GetpTexture_newRecord(),
 		NULL,
 		&(D3DXVECTOR3(0.0f, -50.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -125,14 +125,14 @@ void Sprite::SaveGameTimeDraw()
 	);
 	//コロンを表示させる。
 	ppSprite->Draw(
-		scenemanager->gametimetexture.pTexture_dot,
+		scenemanager->GetGameTimeTexture().GetpTexture_dot(),
 		NULL,
 		&(D3DXVECTOR3(-237.0f,-60.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 		(D3DCOLOR_ARGB(255, 255, 255, 255))
 	);
 	ppSprite->Draw(
-		scenemanager->gametimetexture.pTexture_dot,
+		scenemanager->GetGameTimeTexture().GetpTexture_dot(),
 		NULL,
 		&(D3DXVECTOR3(-237.0f,-80.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -141,7 +141,7 @@ void Sprite::SaveGameTimeDraw()
 
 	//ドットを表示させる。
 	ppSprite->Draw(
-		scenemanager->gametimetexture.pTexture_dot,
+		scenemanager->GetGameTimeTexture().GetpTexture_dot(),
 		NULL,
 		&(D3DXVECTOR3(-317.0f, -80.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -151,14 +151,14 @@ void Sprite::SaveGameTimeDraw()
 	for (int i = 0; i < 4; i++)
 	{
 		ppSprite->Draw(
-			scenemanager->gametimetexture.pTexture[scenemanager->gametimetexture.gametimeSave[i]],
+			scenemanager->GetGameTimeTexture().SetpTexture(scenemanager->GetGameTimeTexture().SetGameTimeSave(i)),
 			NULL,
 			&(D3DXVECTOR3((float)(i + 5) * -40.0f, -50.0f, 0.0f)),
 			&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
 			(D3DCOLOR_ARGB(255, 255, 255, 255))
 		);
 	}
-	scenemanager->gametimetexture.SaveUpdate();
+	scenemanager->GetGameTimeTexture().SaveUpdate();
 	ppSprite->End();
 }
 

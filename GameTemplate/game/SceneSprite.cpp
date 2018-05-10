@@ -17,15 +17,15 @@ void SceneSprite::Init()
 		g_pd3dDevice,
 		&ppSprite
 	);
-	scenemanager->titletexture.Init();
-	scenemanager->goaltexture.Init();
-	scenemanager->starttexture.Init();
+	scenemanager->GetTitleTexture().Init();
+	scenemanager->GetGoalTexture().Init();
+	scenemanager->GetStartTexture().Init();
 }
 void SceneSprite::TitleDraw()
 {
 	ppSprite->Begin(0);
 	ppSprite->Draw(
-		scenemanager->titletexture.pTexture,
+		scenemanager->GetTitleTexture().GetpTexture(),
 		NULL,
 		&(D3DXVECTOR3(10.0f, 0.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -37,7 +37,7 @@ void SceneSprite::GoalDraw()
 {
 	ppSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	ppSprite->Draw(
-		scenemanager->goaltexture.pTexture,
+		scenemanager->GetGoalTexture().GetpTexture(),
 		NULL,
 		&(D3DXVECTOR3(10.0f, 0.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
@@ -49,7 +49,7 @@ void SceneSprite::StartDraw()
 {
 	ppSprite->Begin(D3DXSPRITE_ALPHABLEND);
 	ppSprite->Draw(
-		scenemanager->starttexture.pTexture,
+		scenemanager->GetStartTexture().GetpTexture(),
 		NULL,
 		&(D3DXVECTOR3(10.0f, 0.0f, 0.0f)),
 		&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),

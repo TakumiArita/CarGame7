@@ -22,8 +22,8 @@ void TitleTexture::Init()
 		//Direct3Dデバイス
 		g_pd3dDevice,
 		"Assets/modelData/Title2.png",
-		FRAME_BUFFER_WIDTH + 100,
-		FRAME_BUFFER_HEIGHT + 100,
+		FRAME_BUFFER_WIDTH,
+		FRAME_BUFFER_HEIGHT,
 		0,
 		0,
 		D3DFMT_UNKNOWN,

@@ -9,11 +9,10 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	if (gamess != NULL)
+	if (titleBgm != NULL)
 	{
-		delete gamess;
+		delete titleBgm;
 	}
-	gamess = NULL;
 }
 
 void SceneManager::Init()
@@ -31,7 +30,8 @@ void SceneManager::Init()
 	//アイテム初期化。
 	item.Init();
 	//シャドウマップ初期化。
-	g_shadowmap.Init();
+	g_shadowmap = new ShadowMap;
+	g_shadowmap->Init();
 	//スプライトの初期化。
 	scenesprite.Init();
 	//ゲーム時間の初期化。
@@ -55,7 +55,20 @@ void SceneManager::Init()
 	param.intervalTime = 0.2f;
 	param.initSpeed = D3DXVECTOR3(0.0f, 2.0f, 0.0f);
 	particleemitter.Init(param);
-
+	//レンダリングターゲットを作成する。
+	GetRenderTarget().Create(
+		FRAME_BUFFER_WIDTH,  //レンダリングターゲットの横の解像度。
+		FRAME_BUFFER_HEIGHT, //レンダリングターゲットの縦の解像度。
+		1,                   //1でいい。
+		D3DFMT_A16B16G16R16F,//DirectX3のテキストを読んで調べる。16ビットの浮動小数点バッファを使う。
+		D3DFMT_D16,          //16bitの深度バッファのフォーマットを指定する。
+		D3DMULTISAMPLE_NONE, //D3DMULTISAMPLE_NONEでいい。
+		0                    //0でいい。
+	);
+	D3DXCreateSprite(
+		g_pd3dDevice,
+		&bloomSprite
+	);
 }
 void SceneManager::Update()
 {
@@ -91,11 +104,10 @@ void SceneManager::Update()
 
 
 	GameSound();
-	if (gamess != NULL)
+	if (titleBgm != NULL)
 	{
-		gamess->Update();
+		titleBgm->Update();
 	}
-	soundSource.Update();
 
 	D3DXVECTOR3 targetPos = player.GetPosition();
 	eyePos = targetPos;                         //カメラの注視点を中心にする。
@@ -117,9 +129,9 @@ void SceneManager::Update()
 	camera.Update();
 
 	//シャドウマップ更新。
-	g_shadowmap.SetLightViewPosition(D3DXVECTOR3(player.GetPosition().x, player.GetPosition().y + 25.0f, player.GetPosition().z));
-	g_shadowmap.SetLightViewTarget(D3DXVECTOR3(player.GetPosition().x, player.GetPosition().y, player.GetPosition().z));
-	g_shadowmap.Update();
+	g_shadowmap->SetLightViewPosition(D3DXVECTOR3(player.GetPosition().x, player.GetPosition().y + 25.0f, player.GetPosition().z));
+	g_shadowmap->SetLightViewTarget(D3DXVECTOR3(player.GetPosition().x, player.GetPosition().y, player.GetPosition().z));
+	g_shadowmap->Update();
 	/*
 	mainrendertarget.InitMainRenderTarget();
 	mainrendertarget.InitQuadPrimitive();
@@ -147,25 +159,73 @@ void SceneManager::Draw()
 		titletexture.TitleRelease();
 		//アルファブレンディングOFF
 		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-		//マップの描画
-		map.Draw();
+		{
+
+			
+			//後で戻すためにフレームバッファのレンダリングターゲットとデプスステンシルバッファのバックアップを取る。
+			LPDIRECT3DSURFACE9 frameBufferRT;
+			LPDIRECT3DSURFACE9 frameBufferDS;
+			g_pd3dDevice->GetRenderTarget(0, &frameBufferRT);
+			g_pd3dDevice->GetDepthStencilSurface(&frameBufferDS);
+
+			//レンダリングターゲットをオフスクリーンにする。
+			g_pd3dDevice->SetRenderTarget(
+				0,
+				renderTarget.GetRenderTarget()
+			);
+			g_pd3dDevice->SetDepthStencilSurface(renderTarget.GetDepthStencilBuffer());
+			g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
+			
+			//不透明物の描画。
+			skybox.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, false);
+			//マップの描画
+			map.Draw();
+
+			//半透明物の描画。
+			//アルファブレンディングON
+			g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+			//半透明合成
+			//g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			//g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+			//加算合成
+			g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+			g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+			//プレイヤーの描画
+			player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
+			//アイテムの描画
+			item.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
+			//アルファブレンディングOFF
+			g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+			
+			particleemitter.Render(camera.GetViewMatrix(), camera.GetProjectionMatrix());
+
+			//ブルームの描画。
+			bloom.Render();
+			//シーンの描画が完了したのでレンダリングターゲットをフレームバッファに戻す。
+			g_pd3dDevice->SetRenderTarget(0, frameBufferRT);
+			g_pd3dDevice->SetDepthStencilSurface(frameBufferDS);
+			//参照カウンタが増えているので開放。
+			frameBufferRT->Release();
+			frameBufferDS->Release();
+
+			//スプライトの作成。
+			g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0);
+			bloomSprite->Begin(D3DXSPRITE_DONOTSAVESTATE);
+			bloomSprite->Draw(
+				renderTarget.GetTexture(),
+				NULL,
+				&(D3DXVECTOR3(10.0f, 0.0f, 0.0f)),
+				&(D3DXVECTOR3(0.0f, 0.0f, 0.0f)),
+				(D3DCOLOR_ARGB(255, 255, 255, 255))
+			);
+			bloomSprite->End();
+		}
+
+		//シャドウマップ描画。
+		g_shadowmap->Draw();
+
 		//スプライトの描画
 		sprite.Draw();
-		//アルファブレンディングON
-		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-		//加算合成
-		g_pd3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
-		g_pd3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-		//プレイヤーの描画
-		player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
-		player.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
-		item.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, true);
-		//アルファブレンディングOFF
-		g_pd3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-		particleemitter.Render(camera.GetViewMatrix(), camera.GetProjectionMatrix());
-		//シャドウマップ描画。
-		g_shadowmap.Draw();
-
 		//ゴールのテクスチャの描画。
 		if (player.GetCirclingTimes() > 2)
 		{
@@ -184,8 +244,10 @@ void SceneManager::Draw()
 		{
 			scenesprite.StartDraw();
 		}
-		skybox.Draw(camera.GetViewMatrix(), camera.GetProjectionMatrix(), false, false, false);
+		
 	}
+	//g_pd3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+
 }
 
 void SceneManager::GameSound()
@@ -193,21 +255,23 @@ void SceneManager::GameSound()
 
 	if (Titleflag == true)
 	{
-		if (gamess == NULL)
+		if (titleBgm == NULL)
 		{
-			gamess = new CSoundSource;
-			gamess->Init("Assets/sound/holidays.wav");
-			gamess->SetVolume(0.5f);
-			gamess->Play(true);
+			titleBgm = new CSoundSource;
+			titleBgm->Init("Assets/sound/holidays.wav");
+			titleBgm->SetVolume(0.5f);
+			titleBgm->Play(true);
 		}
 	}
 }
 
 void SceneManager::GameSoundRelease()
 {
-	if (gamess != NULL)
+	if (titleBgm != NULL)
 	{
-		delete gamess;
+		delete titleBgm;
+		titleBgm = NULL;
 	}
-	gamess = NULL;
 }
+
+

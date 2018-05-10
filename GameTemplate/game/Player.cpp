@@ -49,12 +49,16 @@ void Player::Init()
 	D3DXVec3Normalize((D3DXVECTOR3*)&v, (D3DXVECTOR3*)&v);
 	light.SetDiffuseLightDirection(3, v);
 
-	light.SetDiffuseLightColor(0, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
-	light.SetDiffuseLightColor(1, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
-	light.SetDiffuseLightColor(2, D3DXVECTOR4(0.6f, 0.6f, 0.6f, 1.0f));
-	light.SetDiffuseLightColor(3, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
+	//light.SetDiffuseLightColor(0, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
+	//light.SetDiffuseLightColor(1, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
+	//light.SetDiffuseLightColor(2, D3DXVECTOR4(0.6f, 0.6f, 0.6f, 1.0f));
+	//light.SetDiffuseLightColor(3, D3DXVECTOR4(0.4f, 0.4f, 0.4f, 1.0f));
+	light.SetDiffuseLightColor(0, D3DXVECTOR4(0.2f, 0.2f, 0.2f, 1.0f));
+	light.SetDiffuseLightColor(1, D3DXVECTOR4(0.8f, 0.8f, 0.8f, 5.0f));
+	light.SetDiffuseLightColor(2, D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f));
+	light.SetDiffuseLightColor(3, D3DXVECTOR4(0.0f, 0.0f, 0.0f, 1.0f));
 
-	light.SetAmbientLight(D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f));
+	light.SetAmbientLight(D3DXVECTOR4(0.2f, 0.2f, 0.2f, 1.0f));
 	
 	//モデルのロード
 	modelData.LoadModelData("Assets/modelData/Car1.X", &animation);
@@ -92,7 +96,7 @@ void Player::Init()
 	lookcamera = -90.0f;
 	//プレイヤーの初期化
 	qcamera = -90.0f;
-	scenemanager->soundEngine.Init();
+	scenemanager->GetCSoundEngine().Init();
 	ss = new CSoundSource;
 }
 
@@ -148,7 +152,7 @@ void Player::Update()
 	D3DXQuaternionRotationAxis(&addRot, &D3DXVECTOR3(0.0f, 1.0f, 0.0f), D3DXToRadian(-GetLookCamera()));
 
 	//スタートのカウント。
-	if (scenemanager->startcounttexture.GetStartCountTimer() <= 0)
+	if (scenemanager->GetStartCountTexture().GetStartCountTimer() <= 0)
 	{
 		if (GetCirclingTimes() < 3)
 		{
@@ -156,10 +160,18 @@ void Player::Update()
 			if (GetAsyncKeyState('W') || pad->IsPress(pad->enButtonB))
 			{
 				//プレイヤーの速度。
-				moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -10.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
-				if (scenemanager->item.GetItemFlag() == true)
+				//moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -10.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
+
+				if (scenemanager->GetItem().GetItemFlag() == true)
 				{
-					moveSpeed *= 1.5f;
+					moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -1.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
+					//moveSpeed *= 1.75f;
+					moveSpeed *=2.5f;
+
+				}
+				else
+				{
+					moveSpeed = D3DXVECTOR3(-cos(D3DXToRadian(GetLookCamera())) * 100.0f, -10.0f, -sin(D3DXToRadian(GetLookCamera())) * 100.0f);
 				}
 				if (ss == NULL)
 				{
@@ -168,6 +180,17 @@ void Player::Update()
 					ss->SetVolume(0.6f);
 					ss->Play(true);
 				}
+				if (GetAsyncKeyState('J') || pad->IsTrigger(pad->enButtonRB1))
+				{
+					if (GetIsOnGround() == true)
+					{
+						//ジャンプ
+						moveSpeed.y = 50.0f;
+						//ジャンプしたことをキャラクタコントローラーに通知。
+						characterController.Jump();
+					}
+				}
+
 			}
 			else if (ss != NULL)
 			{
@@ -213,16 +236,7 @@ void Player::Update()
 		moveSpeed *= 0.0f;
 	}
 
-	if (GetAsyncKeyState('J'))
-	{
-		if (GetIsOnGround() == true)
-		{
-			//ジャンプ
-			moveSpeed.y = 50.0f;
-			//ジャンプしたことをキャラクタコントローラーに通知。
-			characterController.Jump();
-		}
-	}
+
 	//パッドの更新
 	//pad->Update();
 
@@ -230,14 +244,14 @@ void Player::Update()
 	//D3DXVec3Normalize(&SecondmoveSpeed, &moveSpeed);
 	int edgeNo = -1;
 	float nearLen = 1000.0f;		//一番近いエッジまでの距離を格納する変数。
-	for (int i = 0; i < scenemanager->courcePath.GetNumEdge(); i++)
+	for (int i = 0; i < scenemanager->GetCCourcePath().GetNumEdge(); i++)
 	{
 		//コースパスのエッジの向き(始点から終点へ向かうエッジの向き)
-		D3DXVECTOR3 CListDirection = scenemanager->courcePath.GetCourceEdigeList(i).direction;
-		StartToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).startPos;
-		NormalStartToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).startPos;
-		EndToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).endPos;
-		NormalEndToPlayerDirection = GetPosition() - scenemanager->courcePath.GetCourceEdigeList(i).endPos;
+		D3DXVECTOR3 CListDirection = scenemanager->GetCCourcePath().GetCourceEdigeList(i).direction;
+		StartToPlayerDirection = GetPosition() - scenemanager->GetCCourcePath().GetCourceEdigeList(i).startPos;
+		NormalStartToPlayerDirection = GetPosition() - scenemanager->GetCCourcePath().GetCourceEdigeList(i).startPos;
+		EndToPlayerDirection = GetPosition() - scenemanager->GetCCourcePath().GetCourceEdigeList(i).endPos;
+		NormalEndToPlayerDirection = GetPosition() - scenemanager->GetCCourcePath().GetCourceEdigeList(i).endPos;
 
 		//XZ平面で計算する。
 		StartToPlayerDirection.y = 0.0f;
@@ -275,7 +289,7 @@ void Player::Update()
 		firstEdgeNoFlag = true;
 	}
 	//最後のエッジを通るとflagがtrueになる。
-	if (edgeNo == scenemanager->courcePath.GetNumEdge() - 1)
+	if (edgeNo == scenemanager->GetCCourcePath().GetNumEdge() - 1)
 	{
 		lastEdgeNoFlag = true;
 	}
@@ -317,7 +331,7 @@ void Player::Update()
 	
 	if (edgeNo != -1) {
 		//一番近いエッジの方向を取得する。
-		D3DXVECTOR3 CListDirection = scenemanager->courcePath.GetCourceEdigeList(edgeNo).direction;
+		D3DXVECTOR3 CListDirection = scenemanager->GetCCourcePath().GetCourceEdigeList(edgeNo).direction;
 		D3DXVECTOR3 moveDir;
 		D3DXVec3Normalize(&moveDir, &moveSpeed);
 		if (D3DXVec3Dot(&CListDirection, &moveDir) < 0) {
